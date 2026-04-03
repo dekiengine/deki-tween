@@ -11,4 +11,9 @@ set(MODULE_SOURCES
     TweenComponent.cpp
 )
 set(MODULE_ENTRY TweenModule.cpp)
+set(MODULE_EDITOR_SOURCES
+    editor/TweenCustomEditor.cpp
+)
+set(MODULE_NEEDS_IMGUI ON)
+set(MODULE_LINK_DEPS deki-editor)
 set(MODULE_EXPORT_ALL_SYMBOLS OFF)
