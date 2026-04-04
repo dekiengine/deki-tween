@@ -10,7 +10,7 @@
  *
  * 1. Static API (requires at least one TweenComponent in prefab):
  *    @code
- *    #include "modules/tween/TweenModule.h"
+ *    #include "TweenModule.h"
  *
  *    // Tween a float value
  *    deki::TweenManager::To(&myValue, 100.0f, 0.5f)

@@ -10,7 +10,7 @@
  */
 
 #include "interop/DekiPlugin.h"
-#include "modules/DekiModuleFeatureMeta.h"
+#include "DekiModuleFeatureMeta.h"
 #include "TweenComponent.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
