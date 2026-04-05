@@ -14,7 +14,9 @@
 #include "TweenComponent.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
+#ifdef DEKI_EDITOR
 #include "imgui.h"
+#endif
 
 #ifdef DEKI_EDITOR
 
@@ -109,10 +111,12 @@ DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
     DekiTween_EnsureRegistered();
 }
 
+#ifdef DEKI_EDITOR
 DEKI_PLUGIN_API void DekiPlugin_SetImGuiContext(void* ctx)
 {
     ImGui::SetCurrentContext(static_cast<ImGuiContext*>(ctx));
 }
+#endif
 
 // =============================================================================
 // Module Feature API
