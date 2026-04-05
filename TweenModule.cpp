@@ -14,6 +14,7 @@
 #include "TweenComponent.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
+#include "imgui.h"
 
 #ifdef DEKI_EDITOR
 
@@ -106,6 +107,11 @@ DEKI_PLUGIN_API const DekiComponentMeta* DekiPlugin_GetComponentMeta(int index)
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 {
     DekiTween_EnsureRegistered();
+}
+
+DEKI_PLUGIN_API void DekiPlugin_SetImGuiContext(void* ctx)
+{
+    ImGui::SetCurrentContext(static_cast<ImGuiContext*>(ctx));
 }
 
 // =============================================================================
