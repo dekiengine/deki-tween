@@ -12,6 +12,7 @@
 #include "interop/DekiPlugin.h"
 #include "DekiModuleFeatureMeta.h"
 #include "TweenComponent.h"
+#include "TweenManager.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
 #ifdef DEKI_EDITOR
@@ -109,6 +110,11 @@ DEKI_PLUGIN_API const DekiComponentMeta* DekiPlugin_GetComponentMeta(int index)
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 {
     DekiTween_EnsureRegistered();
+}
+
+DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
+{
+    deki::TweenManager::Instance().KillAll();
 }
 
 #ifdef DEKI_EDITOR
