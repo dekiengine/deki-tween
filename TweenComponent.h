@@ -11,10 +11,10 @@
 /**
  * @brief Tween target type - which property to animate
  *
- * Uses Vector3 end_value:
+ * Uses DekiVector3 end_value:
  * - Position: X,Y from end_value
  * - Scale: X,Y from end_value
- * - Rotation: Z from end_value (degrees)
+ * - Rotation: Z from end_value (radians; engine convention)
  */
 enum class TweenTargetType : uint8_t
 {
@@ -33,7 +33,7 @@ enum class TweenTargetType : uint8_t
  * Tweens from current state to end_value:
  * - Position: X,Y from end_value
  * - Scale: X,Y from end_value
- * - Rotation: Z from end_value (degrees)
+ * - Rotation: Z from end_value (radians; engine convention)
  *
  * Features:
  * - Target property selection (position, scale, rotation)
@@ -55,14 +55,14 @@ public:
 
     /** @brief End value - Position/Scale use X,Y; Rotation uses Z */
     DEKI_EXPORT
-    Vector3 end_value = Vector3(0.0f, 0.0f, 0.0f);
+    DekiVector3 end_value = DekiVector3(0.0f, 0.0f, 0.0f);
 
-    /** @brief Duration in seconds */
+    /** @brief Duration in seconds. */
     DEKI_EXPORT
     DEKI_SLIDER(0.1f, 10.0f)
     float duration = 1.0f;
 
-    /** @brief Delay before starting (seconds) */
+    /** @brief Delay before starting (seconds). */
     DEKI_EXPORT
     DEKI_SLIDER(0.0f, 5.0f)
     float delay = 0.0f;
@@ -140,12 +140,12 @@ public:
     bool HasCompleted() const { return m_HasCompleted; }
 
     /**
-     * @brief Get current progress (0-1)
+     * @brief Get current progress (0-1).
      */
     float GetProgress() const;
 
 private:
-    // Runtime state
+    // Runtime state.
     float m_Elapsed = 0.0f;
     float m_DelayElapsed = 0.0f;
     int32_t m_CurrentLoop = 0;
@@ -155,23 +155,23 @@ private:
     bool m_IsPaused = false;
 
     // Cached initial value (captured when tween starts)
-    Vector3 m_StartValue = Vector3(0.0f, 0.0f, 0.0f);
+    DekiVector3 m_StartValue = DekiVector3(0.0f, 0.0f, 0.0f);
 
     /**
-     * @brief Get the current value of the target property as Vector3
+     * @brief Get the current value of the target property as DekiVector3
      * Position: X,Y from object position
      * Scale: X,Y from object scale
      * Rotation: Z from object rotation
      */
-    Vector3 GetCurrentValue() const;
+    DekiVector3 GetCurrentValue() const;
 
     /**
-     * @brief Apply interpolated Vector3 value to target
+     * @brief Apply interpolated DekiVector3 value to target
      */
     void ApplyValue(float easedT);
 
     /**
-     * @brief Get the eased progress value
+     * @brief Get the eased progress value.
      */
     float GetEasedProgress(float t) const;
 

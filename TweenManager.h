@@ -62,7 +62,8 @@ public:
     // ========== Static Factory API ==========
 
     /**
-     * @brief Create a float tween from current value to end value
+     * @brief Create a float tween from current value to end value.
+     * `duration` is float seconds.
      */
     static Tween<float>& To(float* target, float endValue, float duration);
 
@@ -82,14 +83,14 @@ public:
     static Tween<int32_t>& FromTo(int32_t* target, int32_t startValue, int32_t endValue, float duration);
 
     /**
-     * @brief Create a Vector2 tween from current value to end value
+     * @brief Create a DekiVector2 tween from current value to end value
      */
-    static Tween<Vector2>& To(Vector2* target, const Vector2& endValue, float duration);
+    static Tween<DekiVector2>& To(DekiVector2* target, const DekiVector2& endValue, float duration);
 
     /**
-     * @brief Create a Vector2 tween from start value to end value
+     * @brief Create a DekiVector2 tween from start value to end value
      */
-    static Tween<Vector2>& FromTo(Vector2* target, const Vector2& startValue, const Vector2& endValue, float duration);
+    static Tween<DekiVector2>& FromTo(DekiVector2* target, const DekiVector2& startValue, const DekiVector2& endValue, float duration);
 
     /**
      * @brief Create a Color tween from current value to end value

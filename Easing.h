@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include "DekiMath.h"
 
 // DLL export macro
 #ifdef DEKI_EDITOR
@@ -20,7 +21,8 @@
 namespace deki {
 
 /**
- * @brief Easing function type - takes normalized time (0-1), returns eased value (0-1)
+ * @brief Easing function type: takes normalized progress t in [0,1],
+ * returns eased value.
  */
 using EasingFunc = float (*)(float t);
 

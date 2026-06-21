@@ -15,9 +15,6 @@
 #include "TweenManager.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
-#ifdef DEKI_EDITOR
-#include "imgui.h"
-#endif
 
 #ifdef DEKI_EDITOR
 
@@ -117,12 +114,8 @@ DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
     deki::TweenManager::Instance().KillAll();
 }
 
-#ifdef DEKI_EDITOR
-DEKI_PLUGIN_API void DekiPlugin_SetImGuiContext(void* ctx)
-{
-    ImGui::SetCurrentContext(static_cast<ImGuiContext*>(ctx));
-}
-#endif
+// deki-tween renders no editor UI of its own, so it links no ImGui and shares no
+// ImGui context. Its component inspectors are drawn by the editor via reflection.
 
 // =============================================================================
 // Module Feature API

@@ -108,14 +108,14 @@ Tween<int32_t>& TweenManager::FromTo(int32_t* target, int32_t startValue, int32_
     return Instance().AddTween(std::move(tween));
 }
 
-Tween<Vector2>& TweenManager::To(Vector2* target, const Vector2& endValue, float duration)
+Tween<DekiVector2>& TweenManager::To(DekiVector2* target, const DekiVector2& endValue, float duration)
 {
-    return FromTo(target, target ? *target : Vector2::Zero(), endValue, duration);
+    return FromTo(target, target ? *target : DekiVector2::Zero(), endValue, duration);
 }
 
-Tween<Vector2>& TweenManager::FromTo(Vector2* target, const Vector2& startValue, const Vector2& endValue, float duration)
+Tween<DekiVector2>& TweenManager::FromTo(DekiVector2* target, const DekiVector2& startValue, const DekiVector2& endValue, float duration)
 {
-    auto tween = std::make_unique<Tween<Vector2>>();
+    auto tween = std::make_unique<Tween<DekiVector2>>();
     tween->SetTarget(target).From(startValue).To(endValue).Duration(duration).Start();
     return Instance().AddTween(std::move(tween));
 }

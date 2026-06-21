@@ -3,6 +3,7 @@
 namespace deki {
 
 // ========== Interpolation Specializations ==========
+// t is normalized progress in [0,1].
 
 template <>
 float Tween<float>::Interpolate(float t) const
@@ -18,9 +19,9 @@ int32_t Tween<int32_t>::Interpolate(float t) const
 }
 
 template <>
-Vector2 Tween<Vector2>::Interpolate(float t) const
+DekiVector2 Tween<DekiVector2>::Interpolate(float t) const
 {
-    return Vector2::Lerp(m_StartValue, m_EndValue, t);
+    return DekiVector2::Lerp(m_StartValue, m_EndValue, t);
 }
 
 template <>

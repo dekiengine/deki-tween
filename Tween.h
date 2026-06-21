@@ -42,7 +42,7 @@ public:
 /**
  * @brief Templated tween for specific value types
  *
- * Supports: float, int32_t, Vector2, deki::Color
+ * Supports: float, int32_t, DekiVector2, deki::Color
  */
 template <typename T>
 class Tween : public ITween
@@ -101,7 +101,7 @@ public:
     }
 
     /**
-     * @brief Set duration in seconds
+     * @brief Set duration in seconds.
      */
     Tween<T>& Duration(float seconds)
     {
@@ -128,7 +128,7 @@ public:
     }
 
     /**
-     * @brief Set delay before starting (seconds)
+     * @brief Set delay before starting (seconds).
      */
     Tween<T>& Delay(float seconds)
     {
@@ -200,17 +200,19 @@ public:
         if (m_State != TweenState::Running)
             return;
 
+        float dt = deltaTimeSeconds;
+
         // Handle delay
         if (m_DelayElapsed < m_Delay)
         {
-            m_DelayElapsed += deltaTimeSeconds;
+            m_DelayElapsed += dt;
             if (m_DelayElapsed < m_Delay)
                 return;
             // Apply remaining time after delay
-            deltaTimeSeconds = m_DelayElapsed - m_Delay;
+            dt = m_DelayElapsed - m_Delay;
         }
 
-        m_Elapsed += deltaTimeSeconds;
+        m_Elapsed += dt;
 
         float progress = m_Elapsed / m_Duration;
         if (progress >= 1.0f)
@@ -219,7 +221,8 @@ public:
         }
 
         // Apply easing
-        float easedProgress = m_EaseFunc(m_Reversed ? 1.0f - progress : progress);
+        float easedInput = m_Reversed ? (1.0f - progress) : progress;
+        float easedProgress = m_EaseFunc(easedInput);
 
         // Interpolate
         m_CurrentValue = Interpolate(easedProgress);
@@ -294,10 +297,10 @@ private:
     T m_EndValue;      // End value
     T m_CurrentValue;  // Current interpolated value
 
-    float m_Duration;      // Total duration in seconds
-    float m_Elapsed;       // Elapsed time in seconds
-    float m_Delay;         // Delay before starting
-    float m_DelayElapsed;  // Elapsed delay time
+    float m_Duration;
+    float m_Elapsed;
+    float m_Delay;
+    float m_DelayElapsed;
 
     EasingFunc m_EaseFunc;  // Easing function
     TweenState m_State;     // Current state
@@ -311,7 +314,8 @@ private:
     CompleteCallback m_OnComplete;
 
     /**
-     * @brief Interpolate between start and end values
+     * @brief Interpolate between start and end values. t is normalized
+     * progress in [0,1].
      */
     T Interpolate(float t) const;
 
@@ -359,7 +363,7 @@ private:
 };
 
 // ========== Type-specific interpolation specializations ==========
-// Implementations in Tween.cpp
+// Implementations in Tween.cpp.
 
 template <>
 float Tween<float>::Interpolate(float t) const;
@@ -368,7 +372,7 @@ template <>
 int32_t Tween<int32_t>::Interpolate(float t) const;
 
 template <>
-Vector2 Tween<Vector2>::Interpolate(float t) const;
+DekiVector2 Tween<DekiVector2>::Interpolate(float t) const;
 
 template <>
 deki::Color Tween<deki::Color>::Interpolate(float t) const;

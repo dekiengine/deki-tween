@@ -17,8 +17,8 @@
  *        .SetEase(deki::EaseType::QuadOut)
  *        .OnComplete([]() { });
  *
- *    // Tween a Vector2
- *    deki::TweenManager::To(&position, Vector2(100, 200), 1.0f)
+ *    // Tween a DekiVector2
+ *    deki::TweenManager::To(&position, DekiVector2(100, 200), 1.0f)
  *        .SetEase(deki::EaseType::SineInOut);
  *
  *    // Delayed callback

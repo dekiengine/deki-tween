@@ -1,10 +1,10 @@
 #ifdef DEKI_EDITOR
 
 #include <deki-editor/CustomEditor.h>
-#include <deki-editor/EditorGUI.h>
+#include <deki-editor/EditorUI.h>
 #include <deki-editor/EditorRegistry.h>
 #include "../TweenComponent.h"
-#include "imgui.h"
+#include <cstdio>
 
 namespace {
 
@@ -17,22 +17,25 @@ public:
 
     void OnInspectorGUI(DekiComponent* comp) override
     {
+        auto& ui = DekiEditor::EditorUI::Get();
         // Draw all default properties first
-        DekiEditor::EditorGUI::Get().DrawDefaultInspector();
+        ui.DrawDefaultInspector();
 
         // Show calculated total duration
         auto* tween = static_cast<TweenComponent*>(comp);
-        ImGui::Spacing();
-        ImGui::Separator();
+        ui.Space();
+        ui.Separator();
         if (tween->loops == -1)
         {
-            ImGui::TextDisabled("Total Duration: infinite");
+            ui.TextDisabled("Total Duration: infinite");
         }
         else
         {
             int plays = tween->loops <= 1 ? 1 : tween->loops;
             float total = tween->delay + tween->duration * plays;
-            ImGui::TextDisabled("Total Duration: %.2fs", total);
+            char buf[64];
+            std::snprintf(buf, sizeof(buf), "Total Duration: %.2fs", total);
+            ui.TextDisabled(buf);
         }
     }
 };
