@@ -46,6 +46,7 @@ class DEKI_TWEEN_API TweenComponent : public DekiBehaviour
 {
 public:
     DEKI_COMPONENT(TweenComponent, DekiBehaviour, "Animation", "9e113121-59df-4786-9752-0099935f1378", "DEKI_FEATURE_TWEEN")
+    DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
 
     // ========== Inspector Properties ==========
 
