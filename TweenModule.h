@@ -8,7 +8,7 @@
  *
  * Usage:
  *
- * 1. Static API (requires at least one TweenComponent in prefab):
+ * 1. Static API (requires at least one TweenComponent in scene):
  *    @code
  *    #include "TweenModule.h"
  *

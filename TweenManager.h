@@ -16,7 +16,7 @@ namespace deki {
  * using frame tracking to ensure it only processes once per frame.
  *
  * For the static API to work, at least one TweenComponent must exist in
- * the prefab to drive updates. Alternatively, you can manually call
+ * the scene to drive updates. Alternatively, you can manually call
  * TweenManager::Instance().Update() each frame.
  */
 class DEKI_TWEEN_API TweenManager
