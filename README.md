@@ -2,11 +2,11 @@
 
 Tweening and easing animation system for the Deki Engine with 30+ easing functions.
 
-Part of the [Deki Engine](https://github.com/ATeam-Dekiru/deki-engine) module ecosystem.
+Part of the [Deki Engine](https://github.com/ATeam-Dekiru/deki-engine) package ecosystem.
 
 ## Installation
 
-Install via the Module Manager inside the Deki Editor.
+Install via the Package Manager inside the Deki Editor.
 
 ## Dependencies
 

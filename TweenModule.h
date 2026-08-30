@@ -1,16 +1,16 @@
 #pragma once
 
 /**
- * @file TweenModule.h
- * @brief Central header for the Deki Tween Module
+ * @file TweenPackage.h
+ * @brief Central header for the Deki Tween Package
  *
- * The tween module provides value interpolation with easing functions.
+ * The tween package provides value interpolation with easing functions.
  *
  * Usage:
  *
  * 1. Static API (requires at least one TweenComponent in scene):
  *    @code
- *    #include "TweenModule.h"
+ *    #include "TweenPackage.h"
  *
  *    // Tween a float value
  *    deki::TweenManager::To(&myValue, 100.0f, 0.5f)
@@ -58,12 +58,12 @@
     #define DEKI_TWEEN_API
 #endif
 
-// Include all module headers when module is enabled
-#ifdef DEKI_MODULE_TWEEN
+// Include all package headers when package is enabled
+#ifdef DEKI_PACKAGE_TWEEN
 
 #include "Easing.h"
 #include "Tween.h"
 #include "TweenManager.h"
 #include "TweenComponent.h"
 
-#endif // DEKI_MODULE_TWEEN
+#endif // DEKI_PACKAGE_TWEEN

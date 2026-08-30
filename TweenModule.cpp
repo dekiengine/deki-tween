@@ -1,6 +1,6 @@
 /**
- * @file TweenModule.cpp
- * @brief Module entry point for deki-tween DLL
+ * @file TweenPackage.cpp
+ * @brief Package entry point for deki-tween DLL
  *
  * This file exports the standard Deki plugin interface so the editor
  * can load deki-tween.dll and register its components (TweenComponent).
@@ -10,7 +10,7 @@
  */
 
 #include "interop/DekiPlugin.h"
-#include "DekiModuleFeatureMeta.h"
+#include "DekiPackageFeatureMeta.h"
 #include "TweenComponent.h"
 #include "TweenManager.h"
 #include "reflection/ComponentRegistry.h"
@@ -36,12 +36,12 @@ static bool s_TweenRegistered = false;
 extern "C" {
 
 /**
- * @brief Ensure deki-tween module is loaded and components are registered
+ * @brief Ensure deki-tween package is loaded and components are registered
  *
  * Call this from the editor at startup. Simply calling this function is enough
  * to force the linker to include the DLL and trigger static initializers.
  *
- * @return Number of components registered by this module
+ * @return Number of components registered by this package
  */
 DEKI_TWEEN_API int DekiTween_EnsureRegistered(void)
 {
@@ -65,13 +65,13 @@ extern "C" {
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
 {
-    return "Deki Tween Module";
+    return "Deki Tween Package";
 }
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 {
-#ifdef DEKI_MODULE_VERSION
-    return DEKI_MODULE_VERSION;
+#ifdef DEKI_PACKAGE_VERSION
+    return DEKI_PACKAGE_VERSION;
 #else
     return "0.0.0-dev";
 #endif
@@ -118,12 +118,12 @@ DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
 // ImGui context. Its component inspectors are drawn by the editor via reflection.
 
 // =============================================================================
-// Module Feature API
+// Package Feature API
 // =============================================================================
 
 static const char* s_TweenGuids[] = { TweenComponent::StaticGuid };
 
-static const DekiModuleFeatureInfo s_Features[] = {
+static const DekiPackageFeatureInfo s_Features[] = {
     {"tween", "Tween", "Value interpolation with easing functions", true, "DEKI_FEATURE_TWEEN", s_TweenGuids, 1},
 };
 
@@ -132,7 +132,7 @@ DEKI_PLUGIN_API int DekiPlugin_GetFeatureCount(void)
     return sizeof(s_Features) / sizeof(s_Features[0]);
 }
 
-DEKI_PLUGIN_API const DekiModuleFeatureInfo* DekiPlugin_GetFeature(int index)
+DEKI_PLUGIN_API const DekiPackageFeatureInfo* DekiPlugin_GetFeature(int index)
 {
     if (index < 0 || index >= DekiPlugin_GetFeatureCount())
         return nullptr;
@@ -140,7 +140,7 @@ DEKI_PLUGIN_API const DekiModuleFeatureInfo* DekiPlugin_GetFeature(int index)
 }
 
 // =============================================================================
-// Module-specific feature API (for linked DLL access without name conflicts)
+// Package-specific feature API (for linked DLL access without name conflicts)
 // =============================================================================
 
 DEKI_TWEEN_API const char* DekiTween_GetName(void)
@@ -153,7 +153,7 @@ DEKI_TWEEN_API int DekiTween_GetFeatureCount(void)
     return DekiPlugin_GetFeatureCount();
 }
 
-DEKI_TWEEN_API const DekiModuleFeatureInfo* DekiTween_GetFeature(int index)
+DEKI_TWEEN_API const DekiPackageFeatureInfo* DekiTween_GetFeature(int index)
 {
     return DekiPlugin_GetFeature(index);
 }
