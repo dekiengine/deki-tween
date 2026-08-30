@@ -4,14 +4,14 @@
 #include "DekiObject.h"
 
 TweenComponent::TweenComponent()
-    : target_type(TweenTargetType::Position)
-    , end_value(0.0f, 0.0f, 0.0f)
+    : targetType(TweenTargetType::Position)
+    , endValue(0.0f, 0.0f, 0.0f)
     , duration(1.0f)
     , delay(0.0f)
-    , ease_type(deki::EaseType::Linear)
+    , easeType(deki::EaseType::Linear)
     , loops(0)
-    , ping_pong(false)
-    , auto_play(true)
+    , pingPong(false)
+    , autoPlay(true)
     , relative(false)
     , m_Elapsed(0.0f)
     , m_DelayElapsed(0.0f)
@@ -36,7 +36,7 @@ void TweenComponent::Awake()
 
 void TweenComponent::Start()
 {
-    if (auto_play)
+    if (autoPlay)
     {
         Play();
     }
@@ -148,7 +148,7 @@ DekiVector3 TweenComponent::GetCurrentValue() const
     if (!owner)
         return DekiVector3(0.0f, 0.0f, 0.0f);
 
-    switch (target_type)
+    switch (targetType)
     {
     case TweenTargetType::Position:
         return DekiVector3(owner->GetX(), owner->GetY(), 0.0f);
@@ -167,13 +167,13 @@ void TweenComponent::ApplyValue(float easedT)
     if (!owner)
         return;
 
-    // Calculate target value (relative adds to start, absolute uses end_value directly)
-    DekiVector3 targetValue = relative ? m_StartValue + end_value : end_value;
+    // Calculate target value (relative adds to start, absolute uses endValue directly)
+    DekiVector3 targetValue = relative ? m_StartValue + endValue : endValue;
 
     // Interpolate from start to target.
     DekiVector3 value = DekiVector3::Lerp(m_StartValue, targetValue, easedT);
 
-    switch (target_type)
+    switch (targetType)
     {
     case TweenTargetType::Position:
         owner->SetLocalPosition(value.x, value.y);
@@ -192,7 +192,7 @@ void TweenComponent::ApplyValue(float easedT)
 
 float TweenComponent::GetEasedProgress(float t) const
 {
-    deki::EasingFunc func = deki::Ease::GetFunction(ease_type);
+    deki::EasingFunc func = deki::Ease::GetFunction(easeType);
     return func(t);
 }
 
@@ -204,7 +204,7 @@ void TweenComponent::HandleLoopOrComplete()
         m_CurrentLoop++;
         m_Elapsed = 0.0f;
 
-        if (ping_pong)
+        if (pingPong)
         {
             m_Reversed = !m_Reversed;
         }

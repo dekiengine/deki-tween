@@ -11,10 +11,10 @@
 /**
  * @brief Tween target type - which property to animate
  *
- * Uses DekiVector3 end_value:
- * - Position: X,Y from end_value
- * - Scale: X,Y from end_value
- * - Rotation: Z from end_value (radians; engine convention)
+ * Uses DekiVector3 endValue:
+ * - Position: X,Y from endValue
+ * - Scale: X,Y from endValue
+ * - Rotation: Z from endValue (radians; engine convention)
  */
 enum class TweenTargetType : uint8_t
 {
@@ -30,10 +30,10 @@ enum class TweenTargetType : uint8_t
  * Allows designers to set up tweens in the inspector without code.
  * Extends DekiBehaviour for Update() lifecycle.
  *
- * Tweens from current state to end_value:
- * - Position: X,Y from end_value
- * - Scale: X,Y from end_value
- * - Rotation: Z from end_value (radians; engine convention)
+ * Tweens from current state to endValue:
+ * - Position: X,Y from endValue
+ * - Scale: X,Y from endValue
+ * - Rotation: Z from endValue (radians; engine convention)
  *
  * Features:
  * - Target property selection (position, scale, rotation)
@@ -52,11 +52,11 @@ public:
 
     /** @brief Target type to animate */
     DEKI_EXPORT
-    TweenTargetType target_type = TweenTargetType::Position;
+    TweenTargetType targetType = TweenTargetType::Position;
 
     /** @brief End value - Position/Scale use X,Y; Rotation uses Z */
     DEKI_EXPORT
-    DekiVector3 end_value = DekiVector3(0.0f, 0.0f, 0.0f);
+    DekiVector3 endValue = DekiVector3(0.0f, 0.0f, 0.0f);
 
     /** @brief Duration in seconds. */
     DEKI_EXPORT
@@ -70,7 +70,7 @@ public:
 
     /** @brief Easing type */
     DEKI_EXPORT
-    deki::EaseType ease_type = deki::EaseType::Linear;
+    deki::EaseType easeType = deki::EaseType::Linear;
 
     /** @brief Number of loops (-1 = infinite, 0 = no loop) */
     DEKI_EXPORT
@@ -79,11 +79,11 @@ public:
 
     /** @brief Reverse direction each loop */
     DEKI_EXPORT
-    bool ping_pong = false;
+    bool pingPong = false;
 
     /** @brief Auto-play when Start() is called */
     DEKI_EXPORT
-    bool auto_play = true;
+    bool autoPlay = true;
 
     /** @brief Use relative values (add to current instead of absolute) */
     DEKI_EXPORT
