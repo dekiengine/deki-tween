@@ -1,6 +1,6 @@
 #include "Tween.h"
 
-namespace deki {
+namespace Deki {
 
 // ========== Interpolation Specializations ==========
 // t is normalized progress in [0,1].
@@ -25,9 +25,9 @@ DekiVector2 Tween<DekiVector2>::Interpolate(float t) const
 }
 
 template <>
-deki::Color Tween<deki::Color>::Interpolate(float t) const
+Deki::Color Tween<Deki::Color>::Interpolate(float t) const
 {
     return m_StartValue.Lerp(m_EndValue, t);
 }
 
-} // namespace deki
+} // namespace Deki

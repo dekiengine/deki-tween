@@ -70,7 +70,7 @@ public:
 
     /** @brief Easing type */
     DEKI_EXPORT
-    deki::EaseType easeType = deki::EaseType::Linear;
+    Deki::EaseType easeType = Deki::EaseType::Linear;
 
     /** @brief Number of loops (-1 = infinite, 0 = no loop) */
     DEKI_EXPORT

@@ -18,7 +18,7 @@
     #define DEKI_TWEEN_API
 #endif
 
-namespace deki {
+namespace Deki {
 
 /**
  * @brief Easing function type: takes normalized progress t in [0,1],
@@ -140,4 +140,4 @@ DEKI_TWEEN_API EasingFunc GetFunction(EaseType type);
 
 } // namespace Ease
 
-} // namespace deki
+} // namespace Deki

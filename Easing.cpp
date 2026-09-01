@@ -2,7 +2,7 @@
 #include "DekiMath.h"
 #include <cmath>
 
-namespace deki {
+namespace Deki {
 namespace Ease {
 
 // Easing math runs in plain float. The engine convention is radians for all
@@ -338,4 +338,4 @@ EasingFunc GetFunction(EaseType type)
 }
 
 } // namespace Ease
-} // namespace deki
+} // namespace Deki

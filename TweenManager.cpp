@@ -3,7 +3,7 @@
 #include "profiling/DekiProfiler.h"
 #include <algorithm>
 
-namespace deki {
+namespace Deki {
 
 TweenManager::TweenManager()
     : m_NextId(1)
@@ -140,4 +140,4 @@ Tween<float>& TweenManager::DelayedCall(float delay, std::function<void()> callb
     return Instance().AddTween(std::move(tween));
 }
 
-} // namespace deki
+} // namespace Deki

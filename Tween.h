@@ -6,7 +6,7 @@
 #include "DekiVector.h"
 #include "Color.h"
 
-namespace deki {
+namespace Deki {
 
 /**
  * @brief Tween state enum
@@ -42,7 +42,7 @@ public:
 /**
  * @brief Templated tween for specific value types
  *
- * Supports: float, int32_t, DekiVector2, deki::Color
+ * Supports: float, int32_t, DekiVector2, Deki::Color
  */
 template <typename T>
 class Tween : public ITween
@@ -375,6 +375,6 @@ template <>
 DekiVector2 Tween<DekiVector2>::Interpolate(float t) const;
 
 template <>
-deki::Color Tween<deki::Color>::Interpolate(float t) const;
+Deki::Color Tween<Deki::Color>::Interpolate(float t) const;
 
-} // namespace deki
+} // namespace Deki

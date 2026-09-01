@@ -8,7 +8,7 @@ TweenComponent::TweenComponent()
     , endValue(0.0f, 0.0f, 0.0f)
     , duration(1.0f)
     , delay(0.0f)
-    , easeType(deki::EaseType::Linear)
+    , easeType(Deki::EaseType::Linear)
     , loops(0)
     , pingPong(false)
     , autoPlay(true)
@@ -45,7 +45,7 @@ void TweenComponent::Start()
 void TweenComponent::Update()
 {
     // Also update the global TweenManager for static API tweens
-    deki::TweenManager::Instance().EnsureUpdatedThisFrame();
+    Deki::TweenManager::Instance().EnsureUpdatedThisFrame();
 
     if (!m_IsPlaying || m_IsPaused)
         return;
@@ -192,7 +192,7 @@ void TweenComponent::ApplyValue(float easedT)
 
 float TweenComponent::GetEasedProgress(float t) const
 {
-    deki::EasingFunc func = deki::Ease::GetFunction(easeType);
+    Deki::EasingFunc func = Deki::Ease::GetFunction(easeType);
     return func(t);
 }
 

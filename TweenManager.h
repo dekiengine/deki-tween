@@ -6,7 +6,7 @@
 #include <functional>
 #include "Tween.h"
 
-namespace deki {
+namespace Deki {
 
 /**
  * @brief Singleton manager for all active tweens
@@ -164,4 +164,4 @@ Tween<T>& TweenManager::AddTween(std::unique_ptr<Tween<T>> tween)
     return tweenRef;
 }
 
-} // namespace deki
+} // namespace Deki

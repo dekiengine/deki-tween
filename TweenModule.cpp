@@ -10,7 +10,6 @@
  */
 
 #include "interop/DekiPlugin.h"
-#include "DekiPackageFeatureMeta.h"
 #include "TweenComponent.h"
 #include "TweenManager.h"
 #include "reflection/ComponentRegistry.h"
@@ -77,12 +76,6 @@ DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 #endif
 }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetReflectionJson(void)
-{
-    // Not used - we use component metadata instead
-    return "{}";
-}
-
 DEKI_PLUGIN_API int DekiPlugin_Init(void)
 {
     // No special initialization needed
@@ -111,33 +104,11 @@ DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 
 DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
 {
-    deki::TweenManager::Instance().KillAll();
+    Deki::TweenManager::Instance().KillAll();
 }
 
 // deki-tween renders no editor UI of its own, so it links no ImGui and shares no
 // ImGui context. Its component inspectors are drawn by the editor via reflection.
-
-// =============================================================================
-// Package Feature API
-// =============================================================================
-
-static const char* s_TweenGuids[] = { TweenComponent::StaticGuid };
-
-static const DekiPackageFeatureInfo s_Features[] = {
-    {"tween", "Tween", "Value interpolation with easing functions", true, "DEKI_FEATURE_TWEEN", s_TweenGuids, 1},
-};
-
-DEKI_PLUGIN_API int DekiPlugin_GetFeatureCount(void)
-{
-    return sizeof(s_Features) / sizeof(s_Features[0]);
-}
-
-DEKI_PLUGIN_API const DekiPackageFeatureInfo* DekiPlugin_GetFeature(int index)
-{
-    if (index < 0 || index >= DekiPlugin_GetFeatureCount())
-        return nullptr;
-    return &s_Features[index];
-}
 
 // =============================================================================
 // Package-specific feature API (for linked DLL access without name conflicts)
@@ -146,16 +117,6 @@ DEKI_PLUGIN_API const DekiPackageFeatureInfo* DekiPlugin_GetFeature(int index)
 DEKI_TWEEN_API const char* DekiTween_GetName(void)
 {
     return "Tween";
-}
-
-DEKI_TWEEN_API int DekiTween_GetFeatureCount(void)
-{
-    return DekiPlugin_GetFeatureCount();
-}
-
-DEKI_TWEEN_API const DekiPackageFeatureInfo* DekiTween_GetFeature(int index)
-{
-    return DekiPlugin_GetFeature(index);
 }
 
 } // extern "C"
