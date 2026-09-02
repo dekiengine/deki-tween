@@ -12,6 +12,7 @@
 #include "interop/DekiPlugin.h"
 #include "TweenComponent.h"
 #include "TweenManager.h"
+#include "TweenInit.h"
 #include "reflection/ComponentRegistry.h"
 #include "reflection/ComponentFactory.h"
 
@@ -78,12 +79,15 @@ DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 
 DEKI_PLUGIN_API int DekiPlugin_Init(void)
 {
-    // No special initialization needed
+    // Ticks TweenManager from the engine's update loop, so programmatic tweens
+    // run without a TweenComponent in the scene.
+    DekiTween_InitSystem();
     return 0;
 }
 
 DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
 {
+    DekiTween_ShutdownSystem();
     s_TweenRegistered = false;
 }
 

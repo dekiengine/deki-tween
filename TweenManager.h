@@ -12,12 +12,9 @@ namespace Deki {
  * @brief Singleton manager for all active tweens
  *
  * TweenManager holds and updates all tweens created via the static API.
- * It is updated automatically when any TweenComponent's Update() is called,
- * using frame tracking to ensure it only processes once per frame.
- *
- * For the static API to work, at least one TweenComponent must exist in
- * the scene to drive updates. Alternatively, you can manually call
- * TweenManager::Instance().Update() each frame.
+ * The package hooks it into the engine's per-frame update (TweenInit.cpp),
+ * and any TweenComponent's Update() also drives it; frame tracking ensures
+ * it only processes once per frame whichever path runs first.
  */
 class DEKI_TWEEN_API TweenManager
 {
