@@ -1,5 +1,7 @@
 # Deki Tween
 
+Documentation: https://dekiengine.github.io/deki-tween/ (components and properties, generated from the code)
+
 Tweening and easing animation system for the Deki Engine with 30+ easing functions.
 
 Part of the [Deki Engine](https://github.com/dekiengine/deki-engine) package ecosystem.
