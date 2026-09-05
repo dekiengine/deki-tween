@@ -89,7 +89,7 @@ Components</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Component  </th><th class="markdownTableHeadNone">Category  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a class="el" href="#c-tweencomponent" title="TweenComponent (Tween Component)">TweenComponent</a>  </td><td class="markdownTableBodyNone">Animation  </td><td class="markdownTableBodyNone">Animates the object's position, scale or rotation along an easing curve.  </td></tr>
+<td class="markdownTableBodyNone"><a class="el" href="#c-tweencomponent" title="TweenComponent">TweenComponent</a>  </td><td class="markdownTableBodyNone">Animation  </td><td class="markdownTableBodyNone">Animates the object's position, scale or rotation along an easing curve.  </td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Feature flags</h1>
@@ -103,30 +103,30 @@ Feature flags</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Component reference</h1>
 <h2 class="doxsection"><a class="anchor" id="c-tweencomponent"></a>
-TweenComponent (Tween Component)</h2>
+TweenComponent</h2>
 <p>Animates the object's position, scale or rotation along an easing curve.</p>
-<p>Category: Animation · Type GUID: <span class="tt">9e113121-59df-4786-9752-0099935f1378</span></p>
+<p>Inspector name: Tween Component · Category: Animation · Type GUID: <span class="tt">9e113121-59df-4786-9752-0099935f1378</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Notes  </th></tr>
+<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">targetType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>  </td><td class="markdownTableBodyNone">Values: <span class="tt">Position</span>, <span class="tt">Scale</span>, <span class="tt">Rotation</span>  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">targetType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>, <span class="tt">Scale</span>, <span class="tt">Rotation</span>  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">endValue</span>  </td><td class="markdownTableBodyNone">Vector3  </td><td class="markdownTableBodyNone"><span class="tt">[0.0, 0.0, 0.0]</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">endValue</span>  </td><td class="markdownTableBodyNone">Vector3  </td><td class="markdownTableBodyNone"><span class="tt">[0.0, 0.0, 0.0]</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">duration</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">1</span>  </td><td class="markdownTableBodyNone">Range 0.1 to 10 (slider)  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">duration</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">1</span>  </td><td class="markdownTableBodyNone">0.1 to 10 (slider)  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">delay</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">Range 0 to 5 (slider)  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">delay</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">0 to 5 (slider)  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">easeType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>  </td><td class="markdownTableBodyNone">Values: <span class="tt">Linear</span>, <span class="tt">SineIn</span>, <span class="tt">SineOut</span>, <span class="tt">SineInOut</span>, <span class="tt">QuadIn</span>, <span class="tt">QuadOut</span>, <span class="tt">QuadInOut</span>, <span class="tt">CubicIn</span>, <span class="tt">CubicOut</span>, <span class="tt">CubicInOut</span>, <span class="tt">QuartIn</span>, <span class="tt">QuartOut</span>, <span class="tt">QuartInOut</span>, <span class="tt">QuintIn</span>, <span class="tt">QuintOut</span>, <span class="tt">QuintInOut</span>, <span class="tt">ExpoIn</span>, <span class="tt">ExpoOut</span>, <span class="tt">ExpoInOut</span>, <span class="tt">CircIn</span>, <span class="tt">CircOut</span>, <span class="tt">CircInOut</span>, <span class="tt">BackIn</span>, <span class="tt">BackOut</span>, <span class="tt">BackInOut</span>, <span class="tt">ElasticIn</span>, <span class="tt">ElasticOut</span>, <span class="tt">ElasticInOut</span>, <span class="tt">BounceIn</span>, <span class="tt">BounceOut</span>, <span class="tt">BounceInOut</span>  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">easeType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>, <span class="tt">SineIn</span>, <span class="tt">SineOut</span>, <span class="tt">SineInOut</span>, <span class="tt">QuadIn</span>, <span class="tt">QuadOut</span>, <span class="tt">QuadInOut</span>, <span class="tt">CubicIn</span>, <span class="tt">CubicOut</span>, <span class="tt">CubicInOut</span>, <span class="tt">QuartIn</span>, <span class="tt">QuartOut</span>, <span class="tt">QuartInOut</span>, <span class="tt">QuintIn</span>, <span class="tt">QuintOut</span>, <span class="tt">QuintInOut</span>, <span class="tt">ExpoIn</span>, <span class="tt">ExpoOut</span>, <span class="tt">ExpoInOut</span>, <span class="tt">CircIn</span>, <span class="tt">CircOut</span>, <span class="tt">CircInOut</span>, <span class="tt">BackIn</span>, <span class="tt">BackOut</span>, <span class="tt">BackInOut</span>, <span class="tt">ElasticIn</span>, <span class="tt">ElasticOut</span>, <span class="tt">ElasticInOut</span>, <span class="tt">BounceIn</span>, <span class="tt">BounceOut</span>, <span class="tt">BounceInOut</span>  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">loops</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">Range -1 to 100  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">loops</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">-1 to 100  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">pingPong</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">pingPong</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">autoPlay</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">autoPlay</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">relative</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">relative</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <hr  />
 <p>Generated from the package's reflection metadata by the Deki documentation build (engine 1.3.0). Reflected property names are the keys scene files use; a rename ships with an alias, see <a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">COMPATIBILITY.md</a>. </p>
