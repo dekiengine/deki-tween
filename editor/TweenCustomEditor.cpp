@@ -13,9 +13,9 @@ class TweenCustomEditor : public DekiEditor::CustomEditor
 public:
     const char* GetComponentName() const override { return "TweenComponent"; }
 
-    bool WantsInspectorOverride(DekiComponent* comp) override { return true; }
+    bool WantsInspectorOverride(Deki::Component* comp) override { return true; }
 
-    void OnInspectorGUI(DekiComponent* comp) override
+    void OnInspectorGUI(Deki::Component* comp) override
     {
         auto& ui = DekiEditor::EditorUI::Get();
         // Draw all default properties first

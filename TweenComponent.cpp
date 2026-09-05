@@ -50,8 +50,8 @@ void TweenComponent::Update()
     if (!m_IsPlaying || m_IsPaused)
         return;
 
-    // DekiTime returns float milliseconds; convert to seconds.
-    float deltaSeconds = DekiTime::GetDeltaTimeF() / 1000.0f;
+    // Deki::Time returns float milliseconds; convert to seconds.
+    float deltaSeconds = Deki::Time::GetDeltaTimeF() / 1000.0f;
 
     // Handle delay
     if (m_DelayElapsed < delay)
@@ -142,36 +142,36 @@ float TweenComponent::GetProgress() const
     return m_Elapsed / duration;
 }
 
-DekiVector3 TweenComponent::GetCurrentValue() const
+Deki::Vector3 TweenComponent::GetCurrentValue() const
 {
-    DekiObject* owner = GetOwner();
+    Deki::Object* owner = GetOwner();
     if (!owner)
-        return DekiVector3(0.0f, 0.0f, 0.0f);
+        return Deki::Vector3(0.0f, 0.0f, 0.0f);
 
     switch (targetType)
     {
     case TweenTargetType::Position:
-        return DekiVector3(owner->GetX(), owner->GetY(), 0.0f);
+        return Deki::Vector3(owner->GetX(), owner->GetY(), 0.0f);
     case TweenTargetType::Scale:
-        return DekiVector3(owner->GetScaleX(), owner->GetScaleY(), 0.0f);
+        return Deki::Vector3(owner->GetScaleX(), owner->GetScaleY(), 0.0f);
     case TweenTargetType::Rotation:
-        return DekiVector3(0.0f, 0.0f, owner->GetLocalRotation());
+        return Deki::Vector3(0.0f, 0.0f, owner->GetLocalRotation());
     default:
-        return DekiVector3(0.0f, 0.0f, 0.0f);
+        return Deki::Vector3(0.0f, 0.0f, 0.0f);
     }
 }
 
 void TweenComponent::ApplyValue(float easedT)
 {
-    DekiObject* owner = GetOwner();
+    Deki::Object* owner = GetOwner();
     if (!owner)
         return;
 
     // Calculate target value (relative adds to start, absolute uses endValue directly)
-    DekiVector3 targetValue = relative ? m_StartValue + endValue : endValue;
+    Deki::Vector3 targetValue = relative ? m_StartValue + endValue : endValue;
 
     // Interpolate from start to target.
-    DekiVector3 value = DekiVector3::Lerp(m_StartValue, targetValue, easedT);
+    Deki::Vector3 value = Deki::Vector3::Lerp(m_StartValue, targetValue, easedT);
 
     switch (targetType)
     {

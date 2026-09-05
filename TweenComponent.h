@@ -11,7 +11,7 @@
 /**
  * @brief Tween target type - which property to animate
  *
- * Uses DekiVector3 endValue:
+ * Uses Deki::Vector3 endValue:
  * - Position: X,Y from endValue
  * - Scale: X,Y from endValue
  * - Rotation: Z from endValue (radians; engine convention)
@@ -28,7 +28,7 @@ enum class TweenTargetType : uint8_t
  * @brief Editor-configurable tween component
  *
  * Allows designers to set up tweens in the inspector without code.
- * Extends DekiBehaviour for Update() lifecycle.
+ * Extends Deki::Behaviour for Update() lifecycle.
  *
  * Tweens from current state to endValue:
  * - Position: X,Y from endValue
@@ -42,10 +42,10 @@ enum class TweenTargetType : uint8_t
  * - Auto-play on start option
  * - Completion events (for chaining or triggering other behaviours)
  */
-class DEKI_TWEEN_API TweenComponent : public DekiBehaviour
+class DEKI_TWEEN_API TweenComponent : public Deki::Behaviour
 {
 public:
-    DEKI_COMPONENT(TweenComponent, DekiBehaviour, "Animation", "9e113121-59df-4786-9752-0099935f1378", "DEKI_FEATURE_TWEEN")
+    DEKI_COMPONENT(TweenComponent, Deki::Behaviour, "Animation", "9e113121-59df-4786-9752-0099935f1378", "DEKI_FEATURE_TWEEN")
     DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
 
     // ========== Inspector Properties ==========
@@ -56,7 +56,7 @@ public:
 
     /** @brief End value - Position/Scale use X,Y; Rotation uses Z */
     DEKI_EXPORT
-    DekiVector3 endValue = DekiVector3(0.0f, 0.0f, 0.0f);
+    Deki::Vector3 endValue = Deki::Vector3(0.0f, 0.0f, 0.0f);
 
     /** @brief Duration in seconds. */
     DEKI_EXPORT
@@ -156,18 +156,18 @@ private:
     bool m_IsPaused = false;
 
     // Cached initial value (captured when tween starts)
-    DekiVector3 m_StartValue = DekiVector3(0.0f, 0.0f, 0.0f);
+    Deki::Vector3 m_StartValue = Deki::Vector3(0.0f, 0.0f, 0.0f);
 
     /**
-     * @brief Get the current value of the target property as DekiVector3
+     * @brief Get the current value of the target property as Deki::Vector3
      * Position: X,Y from object position
      * Scale: X,Y from object scale
      * Rotation: Z from object rotation
      */
-    DekiVector3 GetCurrentValue() const;
+    Deki::Vector3 GetCurrentValue() const;
 
     /**
-     * @brief Apply interpolated DekiVector3 value to target
+     * @brief Apply interpolated Deki::Vector3 value to target
      */
     void ApplyValue(float easedT);
 

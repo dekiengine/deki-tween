@@ -19,7 +19,7 @@ void DekiTween_InitSystem()
     // EnsureUpdatedThisFrame() rather than Update(): it is frame-guarded, so a
     // TweenComponent that also ticks the manager this frame does not advance
     // every tween twice.
-    s_UpdateId = DekiEngine::GetInstance().RegisterUpdate(
+    s_UpdateId = Deki::Engine::GetInstance().RegisterUpdate(
         [](uint32_t /*deltaTimeMs*/)
         { Deki::TweenManager::Instance().EnsureUpdatedThisFrame(); });
 
@@ -32,7 +32,7 @@ void DekiTween_ShutdownSystem()
         return;
 
     // Must happen before the DLL unloads: the callback's code lives here.
-    DekiEngine::GetInstance().UnregisterUpdate(s_UpdateId);
+    Deki::Engine::GetInstance().UnregisterUpdate(s_UpdateId);
     s_UpdateId = kNotRegistered;
     Deki::TweenManager::Instance().KillAll();
 }

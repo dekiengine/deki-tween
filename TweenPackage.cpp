@@ -28,7 +28,7 @@
 // Auto-generated registration helpers
 extern void DekiTween_RegisterComponents();
 extern int DekiTween_GetAutoComponentCount();
-extern const DekiComponentMeta* DekiTween_GetAutoComponentMeta(int index);
+extern const Deki::ComponentMeta* DekiTween_GetAutoComponentMeta(int index);
 
 // Track if already registered to avoid duplicates
 static bool s_TweenRegistered = false;
@@ -96,7 +96,7 @@ DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
     return DekiTween_GetAutoComponentCount();
 }
 
-DEKI_PLUGIN_API const DekiComponentMeta* DekiPlugin_GetComponentMeta(int index)
+DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
 {
     return DekiTween_GetAutoComponentMeta(index);
 }

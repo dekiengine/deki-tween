@@ -19,9 +19,9 @@ int32_t Tween<int32_t>::Interpolate(float t) const
 }
 
 template <>
-DekiVector2 Tween<DekiVector2>::Interpolate(float t) const
+Deki::Vector2 Tween<Deki::Vector2>::Interpolate(float t) const
 {
-    return DekiVector2::Lerp(m_StartValue, m_EndValue, t);
+    return Deki::Vector2::Lerp(m_StartValue, m_EndValue, t);
 }
 
 template <>

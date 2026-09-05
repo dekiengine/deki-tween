@@ -42,7 +42,7 @@ public:
 /**
  * @brief Templated tween for specific value types
  *
- * Supports: float, int32_t, DekiVector2, Deki::Color
+ * Supports: float, int32_t, Deki::Vector2, Deki::Color
  */
 template <typename T>
 class Tween : public ITween
@@ -372,7 +372,7 @@ template <>
 int32_t Tween<int32_t>::Interpolate(float t) const;
 
 template <>
-DekiVector2 Tween<DekiVector2>::Interpolate(float t) const;
+Deki::Vector2 Tween<Deki::Vector2>::Interpolate(float t) const;
 
 template <>
 Deki::Color Tween<Deki::Color>::Interpolate(float t) const;

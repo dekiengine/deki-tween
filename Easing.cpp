@@ -7,7 +7,7 @@ namespace Ease {
 
 // Easing math runs in plain float. The engine convention is radians for all
 // angular arguments, so trig functions get their arguments in radians directly
-// (e.g. "t * pi" stays "t * DekiMath::kPi", "t * pi/2" becomes "t * kHalfPi").
+// (e.g. "t * pi" stays "t * Deki::Math::kPi", "t * pi/2" becomes "t * kHalfPi").
 
 float Linear(float t)
 {
@@ -18,18 +18,18 @@ float Linear(float t)
 float SineIn(float t)
 {
     // 1 - cos((pi/2) * t)
-    return 1.0f - std::cos(t * DekiMath::kHalfPi);
+    return 1.0f - std::cos(t * Deki::Math::kHalfPi);
 }
 
 float SineOut(float t)
 {
-    return std::sin(t * DekiMath::kHalfPi);
+    return std::sin(t * Deki::Math::kHalfPi);
 }
 
 float SineInOut(float t)
 {
     // (1 - cos(pi*t)) / 2
-    return (1.0f - std::cos(t * DekiMath::kPi)) * 0.5f;
+    return (1.0f - std::cos(t * Deki::Math::kPi)) * 0.5f;
 }
 
 // Quad
@@ -207,8 +207,8 @@ float BackInOut(float t)
 }
 
 // Elastic. Penner uses sin arguments in radians: (2pi)/3 and (2pi)/4.5.
-static constexpr float kElastic_c4Rad = 2.0f * DekiMath::kPi / 3.0f;
-static constexpr float kElastic_c5Rad = 2.0f * DekiMath::kPi / 4.5f;
+static constexpr float kElastic_c4Rad = 2.0f * Deki::Math::kPi / 3.0f;
+static constexpr float kElastic_c5Rad = 2.0f * Deki::Math::kPi / 4.5f;
 
 float ElasticIn(float t)
 {

@@ -17,8 +17,8 @@
  *        .SetEase(Deki::EaseType::QuadOut)
  *        .OnComplete([]() { });
  *
- *    // Tween a DekiVector2
- *    Deki::TweenManager::To(&position, DekiVector2(100, 200), 1.0f)
+ *    // Tween a Deki::Vector2
+ *    Deki::TweenManager::To(&position, Deki::Vector2(100, 200), 1.0f)
  *        .SetEase(Deki::EaseType::SineInOut);
  *
  *    // Delayed callback
@@ -26,7 +26,7 @@
  *    @endcode
  *
  * 2. TweenComponent (editor-configurable):
- *    Add TweenComponent to a DekiObject in the editor and configure
+ *    Add TweenComponent to a Deki::Object in the editor and configure
  *    target type, start/end values, duration, easing, etc.
  *
  * Available easing types:

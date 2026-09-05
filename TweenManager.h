@@ -35,7 +35,7 @@ public:
     /**
      * @brief Ensure manager is updated for the current frame
      *
-     * Uses DekiTime to track frames and only updates once per frame.
+     * Uses Deki::Time to track frames and only updates once per frame.
      * Called automatically by TweenComponent::Update().
      */
     void EnsureUpdatedThisFrame();
@@ -80,14 +80,14 @@ public:
     static Tween<int32_t>& FromTo(int32_t* target, int32_t startValue, int32_t endValue, float duration);
 
     /**
-     * @brief Create a DekiVector2 tween from current value to end value
+     * @brief Create a Deki::Vector2 tween from current value to end value
      */
-    static Tween<DekiVector2>& To(DekiVector2* target, const DekiVector2& endValue, float duration);
+    static Tween<Deki::Vector2>& To(Deki::Vector2* target, const Deki::Vector2& endValue, float duration);
 
     /**
-     * @brief Create a DekiVector2 tween from start value to end value
+     * @brief Create a Deki::Vector2 tween from start value to end value
      */
-    static Tween<DekiVector2>& FromTo(DekiVector2* target, const DekiVector2& startValue, const DekiVector2& endValue, float duration);
+    static Tween<Deki::Vector2>& FromTo(Deki::Vector2* target, const Deki::Vector2& startValue, const Deki::Vector2& endValue, float duration);
 
     /**
      * @brief Create a Color tween from current value to end value

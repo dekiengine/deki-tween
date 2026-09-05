@@ -58,13 +58,13 @@ void TweenManager::Update(float deltaTimeSeconds)
 
 void TweenManager::EnsureUpdatedThisFrame()
 {
-    uint32_t currentTime = DekiTime::GetTime();
+    uint32_t currentTime = Deki::Time::GetTime();
 
     // Only update if we haven't already this frame
     if (currentTime != m_LastUpdateTime)
     {
         m_LastUpdateTime = currentTime;
-        float deltaSeconds = DekiTime::GetDeltaTimeF() / 1000.0f;
+        float deltaSeconds = Deki::Time::GetDeltaTimeF() / 1000.0f;
         Update(deltaSeconds);
     }
 }
@@ -108,14 +108,14 @@ Tween<int32_t>& TweenManager::FromTo(int32_t* target, int32_t startValue, int32_
     return Instance().AddTween(std::move(tween));
 }
 
-Tween<DekiVector2>& TweenManager::To(DekiVector2* target, const DekiVector2& endValue, float duration)
+Tween<Deki::Vector2>& TweenManager::To(Deki::Vector2* target, const Deki::Vector2& endValue, float duration)
 {
-    return FromTo(target, target ? *target : DekiVector2::Zero(), endValue, duration);
+    return FromTo(target, target ? *target : Deki::Vector2::Zero(), endValue, duration);
 }
 
-Tween<DekiVector2>& TweenManager::FromTo(DekiVector2* target, const DekiVector2& startValue, const DekiVector2& endValue, float duration)
+Tween<Deki::Vector2>& TweenManager::FromTo(Deki::Vector2* target, const Deki::Vector2& startValue, const Deki::Vector2& endValue, float duration)
 {
-    auto tween = std::make_unique<Tween<DekiVector2>>();
+    auto tween = std::make_unique<Tween<Deki::Vector2>>();
     tween->SetTarget(target).From(startValue).To(endValue).Duration(duration).Start();
     return Instance().AddTween(std::move(tween));
 }
