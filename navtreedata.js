@@ -26,8 +26,7 @@ var NAVTREE =
 [
   [ "deki-tween", "index.html", [
     [ "Components", "index.html#autotoc_md0", null ],
-    [ "Feature flags", "index.html#autotoc_md1", null ],
-    [ "Component reference", "index.html#autotoc_md2", [
+    [ "Component reference", "index.html#autotoc_md1", [
       [ "TweenComponent", "index.html#c-tweencomponent", null ]
     ] ]
   ] ]
