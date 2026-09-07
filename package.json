@@ -1,7 +1,7 @@
 {
   "id": "deki-tween",
   "displayName": "Tween",
-  "minEngine": "0.10.0",
+  "minEngine": "0.11.0",
   "buildDefine": "DEKI_PACKAGE_TWEEN",
   "requires": [],
   "features": [
@@ -10,8 +10,8 @@
       "displayName": "Tween",
       "buildDefine": "DEKI_FEATURE_TWEEN",
       "defaultEnabled": true,
-      "componentGuids": [
-        "9e113121-59df-4786-9752-0099935f1378"
+      "componentTypes": [
+        "TweenComponent"
       ]
     }
   ]

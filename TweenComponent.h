@@ -42,11 +42,11 @@ enum class TweenTargetType : uint8_t
  * - Auto-play on start option
  * - Completion events (for chaining or triggering other behaviours)
  */
+DEKI_CATEGORY("Animation")
+DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
 class DEKI_TWEEN_API TweenComponent : public Deki::Behaviour
 {
 public:
-    DEKI_COMPONENT(TweenComponent, Deki::Behaviour, "Animation", "9e113121-59df-4786-9752-0099935f1378", "DEKI_FEATURE_TWEEN")
-    DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
 
     // ========== Inspector Properties ==========
 
@@ -183,4 +183,3 @@ private:
 };
 
 // Generated property metadata (after class definition for offsetof)
-#include "generated/TweenComponent.gen.h"
