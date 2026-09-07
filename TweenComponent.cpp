@@ -22,7 +22,6 @@ TweenComponent::TweenComponent()
     , m_IsPaused(false)
     , m_StartValue(0.0f, 0.0f, 0.0f)
 {
-    SetNeedsUpdate(true);
 }
 
 TweenComponent::~TweenComponent()
