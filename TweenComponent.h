@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <functional>
-#include <deki/Behaviour.h>
+#include <deki/Component.h>
 #include <deki/reflection/Property.h>
 #include "Easing.h"
 #include <deki/Vector.h>
@@ -28,7 +28,7 @@ enum class TweenTargetType : uint8_t
  * @brief Editor-configurable tween component
  *
  * Allows designers to set up tweens in the inspector without code.
- * Extends Deki::Behaviour for Update() lifecycle.
+ * Extends Deki::Component for Update() lifecycle.
  *
  * Tweens from current state to endValue:
  * - Position: X,Y from endValue
@@ -44,7 +44,7 @@ enum class TweenTargetType : uint8_t
  */
 DEKI_CATEGORY("Animation")
 DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
-class DEKI_TWEEN_API TweenComponent : public Deki::Behaviour
+class DEKI_TWEEN_API TweenComponent : public Deki::Component
 {
 public:
 
