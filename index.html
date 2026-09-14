@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <div class="textblock"><p><a class="anchor" id="mainpage"></a></p>
 <p>Animation tweening with 30+ easing functions</p>
 <p>Repository: <a href="https://github.com/dekiengine/deki-tween">github.com/dekiengine/deki-tween</a> · Latest release: 0.15.0 · Needs engine 0.15.0+</p>
-<p>Install: <span class="tt">DekiEditor --packages-add deki-tween &lt;project&gt;</span>, or add it in the Package Manager. Part of <a href="https://dekiengine.github.io/docs/">Deki</a>; the engine's own components and the C++ API are documented there.</p>
+<p>Install with <span class="tt">DekiEditor --packages-add deki-tween &lt;project&gt;</span>, or from the Package Manager. The engine's own components and C++ API are in the <a href="https://dekiengine.github.io/docs/">Deki docs</a>.</p>
 <p>Shown in the editor as <b>Tween</b>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md0"></a>
 Components</h1>
@@ -93,7 +93,7 @@ Components</h1>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Feature flags</h1>
-<p>Compile-time features the package exposes (<span class="tt">package.json</span>). A feature with no define is stripped by its component types rather than by the build:</p>
+<p>Features this package can be built without. One with no define is stripped by its component types instead.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Feature  </th><th class="markdownTableHeadNone">Define  </th><th class="markdownTableHeadNone">Default  </th></tr>
@@ -108,25 +108,25 @@ TweenComponent</h2>
 <p>Inspector name: Tween Component · Category: Animation · Type: <span class="tt">TweenComponent</span></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th><th class="markdownTableHeadNone">Description  </th></tr>
+<th class="markdownTableHeadNone">Property  </th><th class="markdownTableHeadNone">Type  </th><th class="markdownTableHeadNone">Default  </th><th class="markdownTableHeadNone">Constraints  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">targetType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>, <span class="tt">Scale</span>, <span class="tt">Rotation</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">targetType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>  </td><td class="markdownTableBodyNone"><span class="tt">Position</span>, <span class="tt">Scale</span>, <span class="tt">Rotation</span>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">endValue</span>  </td><td class="markdownTableBodyNone">Vector3  </td><td class="markdownTableBodyNone"><span class="tt">[0.0, 0.0, 0.0]</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">endValue</span>  </td><td class="markdownTableBodyNone">Vector3  </td><td class="markdownTableBodyNone"><span class="tt">[0.0, 0.0, 0.0]</span>  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">duration</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">1</span>  </td><td class="markdownTableBodyNone">0.1 to 10 (slider)  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">duration</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">1</span>  </td><td class="markdownTableBodyNone">0.1 to 10 (slider)  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">delay</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">0 to 5 (slider)  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">delay</span>  </td><td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">0 to 5 (slider)  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">easeType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>, <span class="tt">SineIn</span>, <span class="tt">SineOut</span>, <span class="tt">SineInOut</span>, <span class="tt">QuadIn</span>, <span class="tt">QuadOut</span>, <span class="tt">QuadInOut</span>, <span class="tt">CubicIn</span>, <span class="tt">CubicOut</span>, <span class="tt">CubicInOut</span>, <span class="tt">QuartIn</span>, <span class="tt">QuartOut</span>, <span class="tt">QuartInOut</span>, <span class="tt">QuintIn</span>, <span class="tt">QuintOut</span>, <span class="tt">QuintInOut</span>, <span class="tt">ExpoIn</span>, <span class="tt">ExpoOut</span>, <span class="tt">ExpoInOut</span>, <span class="tt">CircIn</span>, <span class="tt">CircOut</span>, <span class="tt">CircInOut</span>, <span class="tt">BackIn</span>, <span class="tt">BackOut</span>, <span class="tt">BackInOut</span>, <span class="tt">ElasticIn</span>, <span class="tt">ElasticOut</span>, <span class="tt">ElasticInOut</span>, <span class="tt">BounceIn</span>, <span class="tt">BounceOut</span>, <span class="tt">BounceInOut</span>  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">easeType</span>  </td><td class="markdownTableBodyNone">enum  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>  </td><td class="markdownTableBodyNone"><span class="tt">Linear</span>, <span class="tt">SineIn</span>, <span class="tt">SineOut</span>, <span class="tt">SineInOut</span>, <span class="tt">QuadIn</span>, <span class="tt">QuadOut</span>, <span class="tt">QuadInOut</span>, <span class="tt">CubicIn</span>, <span class="tt">CubicOut</span>, <span class="tt">CubicInOut</span>, <span class="tt">QuartIn</span>, <span class="tt">QuartOut</span>, <span class="tt">QuartInOut</span>, <span class="tt">QuintIn</span>, <span class="tt">QuintOut</span>, <span class="tt">QuintInOut</span>, <span class="tt">ExpoIn</span>, <span class="tt">ExpoOut</span>, <span class="tt">ExpoInOut</span>, <span class="tt">CircIn</span>, <span class="tt">CircOut</span>, <span class="tt">CircInOut</span>, <span class="tt">BackIn</span>, <span class="tt">BackOut</span>, <span class="tt">BackInOut</span>, <span class="tt">ElasticIn</span>, <span class="tt">ElasticOut</span>, <span class="tt">ElasticInOut</span>, <span class="tt">BounceIn</span>, <span class="tt">BounceOut</span>, <span class="tt">BounceInOut</span>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">loops</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">-1 to 100  </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">loops</span>  </td><td class="markdownTableBodyNone">int32  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td><td class="markdownTableBodyNone">-1 to 100  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">pingPong</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">pingPong</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">autoPlay</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">autoPlay</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">relative</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><span class="tt">relative</span>  </td><td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 Changelog</h1>
@@ -139,7 +139,7 @@ Added</h2>
 </ul>
 <p>Earlier releases: <a href="https://github.com/dekiengine/deki-tween/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
 <hr  />
-<p>Generated from the package's reflection metadata by the Deki documentation build (engine 0.15.0). Reflected property names are the keys scene files use; a rename ships with an alias, see <a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">COMPATIBILITY.md</a>. </p>
+<p>Generated from this package's reflection metadata (engine 0.15.0). Property names are the keys scene files use, and a rename ships with an alias (<a href="https://github.com/dekiengine/deki-editor/blob/master/COMPATIBILITY.md">compatibility</a>). </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
