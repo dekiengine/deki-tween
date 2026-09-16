@@ -74,7 +74,7 @@ extern "C" {
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
 {
-    return "DekiRendering::Deki Tween Package";
+    return "Deki Tween Package";
 }
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)

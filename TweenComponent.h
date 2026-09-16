@@ -56,43 +56,52 @@ public:
 
     /** @brief Target type to animate */
     DEKI_EXPORT
+    DEKI_TOOLTIP("Which property of the object is animated: position, scale, rotation or colour.")
     TweenTargetType targetType = TweenTargetType::Position;
 
     /** @brief End value - Position/Scale use X,Y; Rotation uses Z */
     DEKI_EXPORT
+    DEKI_TOOLTIP("The value to arrive at. Which parts are used depends on the target above.")
     Deki::Vector3 endValue = Deki::Vector3(0.0f, 0.0f, 0.0f);
 
     /** @brief Duration in seconds. */
     DEKI_EXPORT
+    DEKI_TOOLTIP("How long one pass takes, in seconds.")
     DEKI_UNIT(Time)
     DEKI_SLIDER(0.1f, 10.0f)
     float duration = 1.0f;
 
     /** @brief Delay before starting (seconds). */
     DEKI_EXPORT
+    DEKI_TOOLTIP("Wait this long, in seconds, before starting.")
     DEKI_UNIT(Time)
     DEKI_SLIDER(0.0f, 5.0f)
     float delay = 0.0f;
 
     /** @brief Easing type */
     DEKI_EXPORT
+    DEKI_TOOLTIP("The shape of the motion. Linear is mechanical; ease-in-out starts and ends gently, which reads as natural for almost everything.")
     DekiTween::EaseType easeType = DekiTween::EaseType::Linear;
 
     /** @brief Number of loops (-1 = infinite, 0 = no loop) */
     DEKI_EXPORT
+    DEKI_TOOLTIP("How many times to run. 0 runs once, -1 repeats forever.")
     DEKI_RANGE(-1, 100)
     int32_t loops = 0;
 
     /** @brief Reverse direction each loop */
     DEKI_EXPORT
+    DEKI_TOOLTIP("Run the tween backwards on alternate passes instead of jumping back to the start.")
     bool pingPong = false;
 
     /** @brief Auto-play when Start() is called */
     DEKI_EXPORT
+    DEKI_TOOLTIP("Start as soon as the object comes alive. Off, something has to start it.")
     bool autoPlay = true;
 
     /** @brief Use relative values (add to current instead of absolute) */
     DEKI_EXPORT
+    DEKI_TOOLTIP("Treat the end value as an offset from where the object already is, rather than an absolute destination.")
     bool relative = false;
 
     // ========== Runtime Callbacks ==========
