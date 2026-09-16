@@ -64,11 +64,13 @@ public:
 
     /** @brief Duration in seconds. */
     DEKI_EXPORT
+    DEKI_UNIT(Time)
     DEKI_SLIDER(0.1f, 10.0f)
     float duration = 1.0f;
 
     /** @brief Delay before starting (seconds). */
     DEKI_EXPORT
+    DEKI_UNIT(Time)
     DEKI_SLIDER(0.0f, 5.0f)
     float delay = 0.0f;
 
