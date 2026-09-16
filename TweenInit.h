@@ -1,5 +1,8 @@
 #pragma once
 
+namespace DekiTween
+{
+
 /**
  * @brief Hook the tween manager into the engine's per-frame update.
  *
@@ -12,3 +15,5 @@
  */
 void DekiTween_InitSystem();
 void DekiTween_ShutdownSystem();
+
+}  // namespace DekiTween

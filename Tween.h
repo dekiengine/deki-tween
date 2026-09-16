@@ -6,7 +6,7 @@
 #include <deki/Vector.h>
 #include <deki/Color.h>
 
-namespace Deki {
+namespace DekiTween {
 
 /**
  * @brief Tween state enum
@@ -377,4 +377,4 @@ Deki::Vector2 Tween<Deki::Vector2>::Interpolate(float t) const;
 template <>
 Deki::Color Tween<Deki::Color>::Interpolate(float t) const;
 
-} // namespace Deki
+} // namespace DekiTween

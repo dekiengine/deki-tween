@@ -3,12 +3,15 @@
 #include <deki/Time.h>
 #include <deki/Object.h>
 
+namespace DekiTween
+{
+
 TweenComponent::TweenComponent()
     : targetType(TweenTargetType::Position)
     , endValue(0.0f, 0.0f, 0.0f)
     , duration(1.0f)
     , delay(0.0f)
-    , easeType(Deki::EaseType::Linear)
+    , easeType(DekiTween::EaseType::Linear)
     , loops(0)
     , pingPong(false)
     , autoPlay(true)
@@ -44,7 +47,7 @@ void TweenComponent::Start()
 void TweenComponent::Update()
 {
     // Also update the global TweenManager for static API tweens
-    Deki::TweenManager::Instance().EnsureUpdatedThisFrame();
+    DekiTween::TweenManager::Instance().EnsureUpdatedThisFrame();
 
     if (!m_IsPlaying || m_IsPaused)
         return;
@@ -191,7 +194,7 @@ void TweenComponent::ApplyValue(float easedT)
 
 float TweenComponent::GetEasedProgress(float t) const
 {
-    Deki::EasingFunc func = Deki::Ease::GetFunction(easeType);
+    DekiTween::EasingFunc func = DekiTween::Ease::GetFunction(easeType);
     return func(t);
 }
 
@@ -220,3 +223,5 @@ void TweenComponent::HandleLoopOrComplete()
         }
     }
 }
+
+}  // namespace DekiTween

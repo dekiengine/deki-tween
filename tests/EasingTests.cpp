@@ -13,10 +13,13 @@
 #include <cmath>
 #include <vector>
 
+// The package's types moved into its namespace; tests name them unqualified.
+using namespace DekiTween;
+
 namespace
 {
 
-using Deki::EaseType;
+using DekiTween::EaseType;
 
 std::vector<EaseType> AllTypes()
 {
@@ -42,7 +45,7 @@ TEST(Easing, EveryTypeResolvesToAFunction)
     // A type added to the enum but forgotten in GetFunction's switch returns
     // null and crashes at the call site instead of here.
     for (EaseType t : AllTypes())
-        EXPECT_NE(Deki::Ease::GetFunction(t), nullptr)
+        EXPECT_NE(DekiTween::Ease::GetFunction(t), nullptr)
             << "no function for ease type " << static_cast<int>(t);
 }
 
@@ -53,7 +56,7 @@ TEST(Easing, EveryCurveStartsAtZeroAndEndsAtOne)
     // Elastic) still have to land exactly.
     for (EaseType t : AllTypes())
     {
-        auto f = Deki::Ease::GetFunction(t);
+        auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         EXPECT_NEAR(f(0.0f), 0.0f, 1e-5f) << "ease type " << static_cast<int>(t) << " at t=0";
         EXPECT_NEAR(f(1.0f), 1.0f, 1e-5f) << "ease type " << static_cast<int>(t) << " at t=1";
@@ -66,7 +69,7 @@ TEST(Easing, EveryCurveIsFiniteAcrossTheInterval)
     // rather than as a wrong number, and reaches a transform unnoticed.
     for (EaseType t : AllTypes())
     {
-        auto f = Deki::Ease::GetFunction(t);
+        auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         for (float x : Samples())
             EXPECT_TRUE(std::isfinite(f(x)))
@@ -87,7 +90,7 @@ TEST(Easing, NonOvershootingCurvesStayInRange)
         if (overshoots)
             continue;
 
-        auto f = Deki::Ease::GetFunction(t);
+        auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         for (float x : Samples())
         {
@@ -116,8 +119,8 @@ TEST(Easing, InAndOutAreMirrorImages)
     };
     for (const Pair& p : pairs)
     {
-        auto in = Deki::Ease::GetFunction(p.in);
-        auto out = Deki::Ease::GetFunction(p.out);
+        auto in = DekiTween::Ease::GetFunction(p.in);
+        auto out = DekiTween::Ease::GetFunction(p.out);
         ASSERT_NE(in, nullptr);
         ASSERT_NE(out, nullptr);
         for (float x : Samples(21))
@@ -138,7 +141,7 @@ TEST(Easing, InOutCurvesAreSymmetricAboutTheMidpoint)
     };
     for (EaseType t : inOuts)
     {
-        auto f = Deki::Ease::GetFunction(t);
+        auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         EXPECT_NEAR(f(0.5f), 0.5f, 1e-4f) << "ease type " << static_cast<int>(t) << " midpoint";
         for (float x : Samples(21))
@@ -161,7 +164,7 @@ TEST(Easing, MonotonicCurvesNeverGoBackwards)
         if (mayReverse)
             continue;
 
-        auto f = Deki::Ease::GetFunction(t);
+        auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         float previous = f(0.0f);
         for (float x : Samples())
@@ -176,7 +179,7 @@ TEST(Easing, MonotonicCurvesNeverGoBackwards)
 
 TEST(Easing, LinearIsTheIdentity)
 {
-    auto f = Deki::Ease::GetFunction(EaseType::Linear);
+    auto f = DekiTween::Ease::GetFunction(EaseType::Linear);
     ASSERT_NE(f, nullptr);
     for (float x : Samples(21))
         EXPECT_FLOAT_EQ(f(x), x);

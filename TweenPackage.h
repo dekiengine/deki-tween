@@ -13,16 +13,16 @@
  *    #include "TweenPackage.h"
  *
  *    // Tween a float value
- *    Deki::TweenManager::To(&myValue, 100.0f, 0.5f)
- *        .SetEase(Deki::EaseType::QuadOut)
+ *    DekiTween::TweenManager::To(&myValue, 100.0f, 0.5f)
+ *        .SetEase(DekiTween::EaseType::QuadOut)
  *        .OnComplete([]() { });
  *
  *    // Tween a Deki::Vector2
- *    Deki::TweenManager::To(&position, Deki::Vector2(100, 200), 1.0f)
- *        .SetEase(Deki::EaseType::SineInOut);
+ *    DekiTween::TweenManager::To(&position, Deki::Vector2(100, 200), 1.0f)
+ *        .SetEase(DekiTween::EaseType::SineInOut);
  *
  *    // Delayed callback
- *    Deki::TweenManager::DelayedCall(2.0f, []() { });
+ *    DekiTween::TweenManager::DelayedCall(2.0f, []() { });
  *    @endcode
  *
  * 2. TweenComponent (editor-configurable):

@@ -16,6 +16,13 @@
 #include <deki/reflection/ComponentRegistry.h>
 #include <deki/reflection/ComponentFactory.h>
 
+extern void DekiTween_RegisterComponents();
+extern int DekiTween_GetAutoComponentCount();
+extern const Deki::ComponentMeta* DekiTween_GetAutoComponentMeta(int index);
+
+namespace DekiTween
+{
+
 #ifdef DEKI_EDITOR
 
 // =============================================================================
@@ -26,12 +33,14 @@
 // initializers (REGISTER_COMPONENT) have run.
 
 // Auto-generated registration helpers
-extern void DekiTween_RegisterComponents();
-extern int DekiTween_GetAutoComponentCount();
-extern const Deki::ComponentMeta* DekiTween_GetAutoComponentMeta(int index);
 
 // Track if already registered to avoid duplicates
 static bool s_TweenRegistered = false;
+
+
+// The exports below are C symbols at global scope; the package's own
+// registration helpers and statics live in its namespace.
+using namespace DekiTween;
 
 extern "C" {
 
@@ -46,13 +55,13 @@ extern "C" {
 DEKI_TWEEN_API int DekiTween_EnsureRegistered(void)
 {
     if (s_TweenRegistered)
-        return DekiTween_GetAutoComponentCount();
+        return ::DekiTween_GetAutoComponentCount();
     s_TweenRegistered = true;
 
     // Auto-generated: registers all Tween components with ComponentRegistry + ComponentFactory
-    DekiTween_RegisterComponents();
+    ::DekiTween_RegisterComponents();
 
-    return DekiTween_GetAutoComponentCount();
+    return ::DekiTween_GetAutoComponentCount();
 }
 
 } // extern "C"
@@ -65,7 +74,7 @@ extern "C" {
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
 {
-    return "Deki Tween Package";
+    return "DekiRendering::Deki Tween Package";
 }
 
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
@@ -93,12 +102,12 @@ DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
 
 DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
 {
-    return DekiTween_GetAutoComponentCount();
+    return ::DekiTween_GetAutoComponentCount();
 }
 
 DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
 {
-    return DekiTween_GetAutoComponentMeta(index);
+    return ::DekiTween_GetAutoComponentMeta(index);
 }
 
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
@@ -108,7 +117,7 @@ DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 
 DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
 {
-    Deki::TweenManager::Instance().KillAll();
+    DekiTween::TweenManager::Instance().KillAll();
 }
 
 // deki-tween renders no editor UI of its own, so it links no ImGui and shares no
@@ -126,3 +135,5 @@ DEKI_TWEEN_API const char* DekiTween_GetName(void)
 } // extern "C"
 
 #endif // DEKI_EDITOR
+}  // namespace DekiTween
+

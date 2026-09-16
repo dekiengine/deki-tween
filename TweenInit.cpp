@@ -5,6 +5,9 @@
 
 #include <cstdint>
 
+namespace DekiTween
+{
+
 namespace
 {
 constexpr size_t kNotRegistered = SIZE_MAX;
@@ -21,7 +24,7 @@ void DekiTween_InitSystem()
     // every tween twice.
     s_UpdateId = Deki::Engine::GetInstance().RegisterUpdate(
         [](uint32_t /*deltaTimeMs*/)
-        { Deki::TweenManager::Instance().EnsureUpdatedThisFrame(); });
+        { DekiTween::TweenManager::Instance().EnsureUpdatedThisFrame(); });
 
     DEKI_LOG_INTERNAL("DekiTween: tween manager hooked into the engine update");
 }
@@ -34,5 +37,7 @@ void DekiTween_ShutdownSystem()
     // Must happen before the DLL unloads: the callback's code lives here.
     Deki::Engine::GetInstance().UnregisterUpdate(s_UpdateId);
     s_UpdateId = kNotRegistered;
-    Deki::TweenManager::Instance().KillAll();
+    DekiTween::TweenManager::Instance().KillAll();
 }
+
+}  // namespace DekiTween

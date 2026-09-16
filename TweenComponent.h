@@ -8,6 +8,9 @@
 #include <deki/Vector.h>
 #include <deki/Color.h>
 
+namespace DekiTween
+{
+
 /**
  * @brief Tween target type - which property to animate
  *
@@ -44,6 +47,7 @@ enum class TweenTargetType : uint8_t
  */
 DEKI_CATEGORY("Animation")
 DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
+DEKI_FORMER_NAME("TweenComponent")
 class DEKI_TWEEN_API TweenComponent : public Deki::Component
 {
 public:
@@ -70,7 +74,7 @@ public:
 
     /** @brief Easing type */
     DEKI_EXPORT
-    Deki::EaseType easeType = Deki::EaseType::Linear;
+    DekiTween::EaseType easeType = DekiTween::EaseType::Linear;
 
     /** @brief Number of loops (-1 = infinite, 0 = no loop) */
     DEKI_EXPORT
@@ -183,3 +187,5 @@ private:
 };
 
 // Generated property metadata (after class definition for offsetof)
+
+}  // namespace DekiTween

@@ -3,7 +3,7 @@
 #include <deki/profiling/Profiler.h>
 #include <algorithm>
 
-namespace Deki {
+namespace DekiTween {
 
 TweenManager::TweenManager()
     : m_NextId(1)
@@ -120,15 +120,15 @@ Tween<Deki::Vector2>& TweenManager::FromTo(Deki::Vector2* target, const Deki::Ve
     return Instance().AddTween(std::move(tween));
 }
 
-Tween<Color>& TweenManager::To(Color* target, const Color& endValue, float duration)
+Tween<Deki::Color>& TweenManager::To(Deki::Color* target, const Deki::Color& endValue, float duration)
 {
-    // Use inline Color constructor instead of Color::White to avoid dllimport issues
-    return FromTo(target, target ? *target : Color(255, 255, 255), endValue, duration);
+    // Use inline Deki::Color constructor instead of Deki::Color::White to avoid dllimport issues
+    return FromTo(target, target ? *target : Deki::Color(255, 255, 255), endValue, duration);
 }
 
-Tween<Color>& TweenManager::FromTo(Color* target, const Color& startValue, const Color& endValue, float duration)
+Tween<Deki::Color>& TweenManager::FromTo(Deki::Color* target, const Deki::Color& startValue, const Deki::Color& endValue, float duration)
 {
-    auto tween = std::make_unique<Tween<Color>>();
+    auto tween = std::make_unique<Tween<Deki::Color>>();
     tween->SetTarget(target).From(startValue).To(endValue).Duration(duration).Start();
     return Instance().AddTween(std::move(tween));
 }
@@ -140,4 +140,4 @@ Tween<float>& TweenManager::DelayedCall(float delay, std::function<void()> callb
     return Instance().AddTween(std::move(tween));
 }
 
-} // namespace Deki
+} // namespace DekiTween

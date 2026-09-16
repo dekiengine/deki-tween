@@ -6,7 +6,7 @@
 #include <functional>
 #include "Tween.h"
 
-namespace Deki {
+namespace DekiTween {
 
 /**
  * @brief Singleton manager for all active tweens
@@ -90,14 +90,14 @@ public:
     static Tween<Deki::Vector2>& FromTo(Deki::Vector2* target, const Deki::Vector2& startValue, const Deki::Vector2& endValue, float duration);
 
     /**
-     * @brief Create a Color tween from current value to end value
+     * @brief Create a color tween from current value to end value
      */
-    static Tween<Color>& To(Color* target, const Color& endValue, float duration);
+    static Tween<Deki::Color>& To(Deki::Color* target, const Deki::Color& endValue, float duration);
 
     /**
-     * @brief Create a Color tween from start value to end value
+     * @brief Create a color tween from start value to end value
      */
-    static Tween<Color>& FromTo(Color* target, const Color& startValue, const Color& endValue, float duration);
+    static Tween<Deki::Color>& FromTo(Deki::Color* target, const Deki::Color& startValue, const Deki::Color& endValue, float duration);
 
     /**
      * @brief Create a delayed callback (no value interpolation)
@@ -161,4 +161,4 @@ Tween<T>& TweenManager::AddTween(std::unique_ptr<Tween<T>> tween)
     return tweenRef;
 }
 
-} // namespace Deki
+} // namespace DekiTween

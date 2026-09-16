@@ -6,6 +6,9 @@
 #include "../TweenComponent.h"
 #include <cstdio>
 
+// Editor extensions live in DekiEditor; the package's own types are in DekiTween.
+using namespace DekiTween;
+
 namespace {
 
 class TweenCustomEditor : public DekiEditor::CustomEditor
@@ -22,7 +25,7 @@ public:
         ui.DrawDefaultInspector();
 
         // Show calculated total duration
-        auto* tween = static_cast<TweenComponent*>(comp);
+        auto* tween = static_cast<DekiTween::TweenComponent*>(comp);
         ui.Space();
         ui.Separator();
         if (tween->loops == -1)
