@@ -5,15 +5,13 @@
 
 #include <cstdint>
 
-namespace DekiTween
-{
-
 namespace
 {
 constexpr size_t kNotRegistered = SIZE_MAX;
 size_t s_UpdateId = kNotRegistered;
 }  // namespace
 
+// Global scope, matching TweenInit.h — see the comment there.
 void DekiTween_InitSystem()
 {
     if (s_UpdateId != kNotRegistered)
@@ -39,5 +37,3 @@ void DekiTween_ShutdownSystem()
     s_UpdateId = kNotRegistered;
     DekiTween::TweenManager::Instance().KillAll();
 }
-
-}  // namespace DekiTween
