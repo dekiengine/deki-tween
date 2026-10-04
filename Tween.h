@@ -6,7 +6,8 @@
 #include <deki/Vector.h>
 #include <deki/Color.h>
 
-namespace DekiTween {
+namespace DekiTween
+{
 
 /**
  * @brief Tween state enum
@@ -52,20 +53,20 @@ public:
     using CompleteCallback = std::function<void()>;
 
     Tween()
-        : m_Target(nullptr)
-        , m_StartValue{}
-        , m_EndValue{}
-        , m_CurrentValue{}
-        , m_Duration(1.0f)
-        , m_Elapsed(0.0f)
-        , m_Delay(0.0f)
-        , m_DelayElapsed(0.0f)
-        , m_EaseFunc(Ease::Linear)
-        , m_State(TweenState::Idle)
-        , m_Loops(0)
-        , m_CurrentLoop(0)
-        , m_PingPong(false)
-        , m_Reversed(false)
+        : m_Target(nullptr),
+          m_StartValue{},
+          m_EndValue{},
+          m_CurrentValue{},
+          m_Duration(1.0f),
+          m_Elapsed(0.0f),
+          m_Delay(0.0f),
+          m_DelayElapsed(0.0f),
+          m_EaseFunc(Ease::Linear),
+          m_State(TweenState::Idle),
+          m_Loops(0),
+          m_CurrentLoop(0),
+          m_PingPong(false),
+          m_Reversed(false)
     {
     }
 
@@ -198,7 +199,9 @@ public:
     void Update(float deltaTimeSeconds) override
     {
         if (m_State != TweenState::Running)
+        {
             return;
+        }
 
         float dt = deltaTimeSeconds;
 
@@ -207,7 +210,9 @@ public:
         {
             m_DelayElapsed += dt;
             if (m_DelayElapsed < m_Delay)
+            {
                 return;
+            }
             // Apply remaining time after delay
             dt = m_DelayElapsed - m_Delay;
         }
@@ -237,10 +242,7 @@ public:
         }
     }
 
-    bool IsComplete() const override
-    {
-        return m_State == TweenState::Completed;
-    }
+    bool IsComplete() const override { return m_State == TweenState::Completed; }
 
     void Kill() override
     {
@@ -264,10 +266,7 @@ public:
         }
     }
 
-    TweenState GetState() const override
-    {
-        return m_State;
-    }
+    TweenState GetState() const override { return m_State; }
 
     void Restart() override
     {
@@ -278,18 +277,12 @@ public:
     /**
      * @brief Get current interpolated value
      */
-    const T& GetCurrentValue() const
-    {
-        return m_CurrentValue;
-    }
+    const T& GetCurrentValue() const { return m_CurrentValue; }
 
     /**
      * @brief Get the target pointer
      */
-    T* GetTarget() const
-    {
-        return m_Target;
-    }
+    T* GetTarget() const { return m_Target; }
 
 private:
     T* m_Target;       // Pointer to value being tweened (optional)
@@ -305,10 +298,10 @@ private:
     EasingFunc m_EaseFunc;  // Easing function
     TweenState m_State;     // Current state
 
-    int32_t m_Loops;       // Number of loops (-1 = infinite)
-    int32_t m_CurrentLoop; // Current loop index
-    bool m_PingPong;       // Reverse direction each loop
-    bool m_Reversed;       // Currently playing in reverse
+    int32_t m_Loops;        // Number of loops (-1 = infinite)
+    int32_t m_CurrentLoop;  // Current loop index
+    bool m_PingPong;        // Reverse direction each loop
+    bool m_Reversed;        // Currently playing in reverse
 
     UpdateCallback m_OnUpdate;
     CompleteCallback m_OnComplete;
@@ -377,4 +370,4 @@ Deki::Vector2 Tween<Deki::Vector2>::Interpolate(float t) const;
 template <>
 Deki::Color Tween<Deki::Color>::Interpolate(float t) const;
 
-} // namespace DekiTween
+}  // namespace DekiTween

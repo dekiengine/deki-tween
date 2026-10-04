@@ -9,7 +9,8 @@
 // Editor extensions live in DekiEditor; the package's own types are in DekiTween.
 using namespace DekiTween;
 
-namespace {
+namespace
+{
 
 class TweenCustomEditor : public DekiEditor::CustomEditor
 {
@@ -43,8 +44,8 @@ public:
     }
 };
 
-} // anonymous namespace
+}  // anonymous namespace
 
 REGISTER_EDITOR(TweenCustomEditor)
 
-#endif // DEKI_EDITOR
+#endif  // DEKI_EDITOR

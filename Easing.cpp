@@ -2,8 +2,10 @@
 #include <deki/Math.h>
 #include <cmath>
 
-namespace DekiTween {
-namespace Ease {
+namespace DekiTween
+{
+namespace Ease
+{
 
 // Easing math runs in plain float. The engine convention is radians for all
 // angular arguments, so trig functions get their arguments in radians directly
@@ -131,20 +133,32 @@ float QuintInOut(float t)
 // Expo
 float ExpoIn(float t)
 {
-    if (t == 0.0f) return 0.0f;
+    if (t == 0.0f)
+    {
+        return 0.0f;
+    }
     return std::pow(2.0f, 10.0f * t - 10.0f);
 }
 
 float ExpoOut(float t)
 {
-    if (t == 1.0f) return 1.0f;
+    if (t == 1.0f)
+    {
+        return 1.0f;
+    }
     return 1.0f - std::pow(2.0f, -10.0f * t);
 }
 
 float ExpoInOut(float t)
 {
-    if (t == 0.0f) return 0.0f;
-    if (t == 1.0f) return 1.0f;
+    if (t == 0.0f)
+    {
+        return 0.0f;
+    }
+    if (t == 1.0f)
+    {
+        return 1.0f;
+    }
     if (t < 0.5f)
     {
         return std::pow(2.0f, 20.0f * t - 10.0f) * 0.5f;
@@ -212,8 +226,14 @@ static constexpr float kElastic_c5Rad = 2.0f * Deki::Math::kPi / 4.5f;
 
 float ElasticIn(float t)
 {
-    if (t == 0.0f) return 0.0f;
-    if (t == 1.0f) return 1.0f;
+    if (t == 0.0f)
+    {
+        return 0.0f;
+    }
+    if (t == 1.0f)
+    {
+        return 1.0f;
+    }
     float amp = std::pow(2.0f, 10.0f * t - 10.0f);
     float phaseRad = (t * 10.0f - 10.75f) * kElastic_c4Rad;
     return -amp * std::sin(phaseRad);
@@ -221,8 +241,14 @@ float ElasticIn(float t)
 
 float ElasticOut(float t)
 {
-    if (t == 0.0f) return 0.0f;
-    if (t == 1.0f) return 1.0f;
+    if (t == 0.0f)
+    {
+        return 0.0f;
+    }
+    if (t == 1.0f)
+    {
+        return 1.0f;
+    }
     float amp = std::pow(2.0f, -10.0f * t);
     float phaseRad = (t * 10.0f - 0.75f) * kElastic_c4Rad;
     return amp * std::sin(phaseRad) + 1.0f;
@@ -230,8 +256,14 @@ float ElasticOut(float t)
 
 float ElasticInOut(float t)
 {
-    if (t == 0.0f) return 0.0f;
-    if (t == 1.0f) return 1.0f;
+    if (t == 0.0f)
+    {
+        return 0.0f;
+    }
+    if (t == 1.0f)
+    {
+        return 1.0f;
+    }
     float phaseRad = (20.0f * t - 11.125f) * kElastic_c5Rad;
     float s = std::sin(phaseRad);
     if (t < 0.5f)
@@ -301,41 +333,40 @@ EasingFunc GetFunction(EaseType type)
 {
     switch (type)
     {
-    case EaseType::Linear:       return Linear;
-    case EaseType::SineIn:       return SineIn;
-    case EaseType::SineOut:      return SineOut;
-    case EaseType::SineInOut:    return SineInOut;
-    case EaseType::QuadIn:       return QuadIn;
-    case EaseType::QuadOut:      return QuadOut;
-    case EaseType::QuadInOut:    return QuadInOut;
-    case EaseType::CubicIn:      return CubicIn;
-    case EaseType::CubicOut:     return CubicOut;
-    case EaseType::CubicInOut:   return CubicInOut;
-    case EaseType::QuartIn:      return QuartIn;
-    case EaseType::QuartOut:     return QuartOut;
-    case EaseType::QuartInOut:   return QuartInOut;
-    case EaseType::QuintIn:      return QuintIn;
-    case EaseType::QuintOut:     return QuintOut;
-    case EaseType::QuintInOut:   return QuintInOut;
-    case EaseType::ExpoIn:       return ExpoIn;
-    case EaseType::ExpoOut:      return ExpoOut;
-    case EaseType::ExpoInOut:    return ExpoInOut;
-    case EaseType::CircIn:       return CircIn;
-    case EaseType::CircOut:      return CircOut;
-    case EaseType::CircInOut:    return CircInOut;
-    case EaseType::BackIn:       return BackIn;
-    case EaseType::BackOut:      return BackOut;
-    case EaseType::BackInOut:    return BackInOut;
-    case EaseType::ElasticIn:    return ElasticIn;
-    case EaseType::ElasticOut:   return ElasticOut;
-    case EaseType::ElasticInOut: return ElasticInOut;
-    case EaseType::BounceIn:     return BounceIn;
-    case EaseType::BounceOut:    return BounceOut;
-    case EaseType::BounceInOut:  return BounceInOut;
-    default:
-        return Linear;
+        case EaseType::Linear: return Linear;
+        case EaseType::SineIn: return SineIn;
+        case EaseType::SineOut: return SineOut;
+        case EaseType::SineInOut: return SineInOut;
+        case EaseType::QuadIn: return QuadIn;
+        case EaseType::QuadOut: return QuadOut;
+        case EaseType::QuadInOut: return QuadInOut;
+        case EaseType::CubicIn: return CubicIn;
+        case EaseType::CubicOut: return CubicOut;
+        case EaseType::CubicInOut: return CubicInOut;
+        case EaseType::QuartIn: return QuartIn;
+        case EaseType::QuartOut: return QuartOut;
+        case EaseType::QuartInOut: return QuartInOut;
+        case EaseType::QuintIn: return QuintIn;
+        case EaseType::QuintOut: return QuintOut;
+        case EaseType::QuintInOut: return QuintInOut;
+        case EaseType::ExpoIn: return ExpoIn;
+        case EaseType::ExpoOut: return ExpoOut;
+        case EaseType::ExpoInOut: return ExpoInOut;
+        case EaseType::CircIn: return CircIn;
+        case EaseType::CircOut: return CircOut;
+        case EaseType::CircInOut: return CircInOut;
+        case EaseType::BackIn: return BackIn;
+        case EaseType::BackOut: return BackOut;
+        case EaseType::BackInOut: return BackInOut;
+        case EaseType::ElasticIn: return ElasticIn;
+        case EaseType::ElasticOut: return ElasticOut;
+        case EaseType::ElasticInOut: return ElasticInOut;
+        case EaseType::BounceIn: return BounceIn;
+        case EaseType::BounceOut: return BounceOut;
+        case EaseType::BounceInOut: return BounceInOut;
+        default: return Linear;
     }
 }
 
-} // namespace Ease
-} // namespace DekiTween
+}  // namespace Ease
+}  // namespace DekiTween

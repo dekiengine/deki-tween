@@ -7,23 +7,23 @@ namespace DekiTween
 {
 
 TweenComponent::TweenComponent()
-    : targetType(TweenTargetType::Position)
-    , endValue(0.0f, 0.0f, 0.0f)
-    , duration(1.0f)
-    , delay(0.0f)
-    , easeType(DekiTween::EaseType::Linear)
-    , loops(0)
-    , pingPong(false)
-    , autoPlay(true)
-    , relative(false)
-    , m_Elapsed(0.0f)
-    , m_DelayElapsed(0.0f)
-    , m_CurrentLoop(0)
-    , m_Reversed(false)
-    , m_HasCompleted(false)
-    , m_IsPlaying(false)
-    , m_IsPaused(false)
-    , m_StartValue(0.0f, 0.0f, 0.0f)
+    : targetType(TweenTargetType::Position),
+      endValue(0.0f, 0.0f, 0.0f),
+      duration(1.0f),
+      delay(0.0f),
+      easeType(DekiTween::EaseType::Linear),
+      loops(0),
+      pingPong(false),
+      autoPlay(true),
+      relative(false),
+      m_Elapsed(0.0f),
+      m_DelayElapsed(0.0f),
+      m_CurrentLoop(0),
+      m_Reversed(false),
+      m_HasCompleted(false),
+      m_IsPlaying(false),
+      m_IsPaused(false),
+      m_StartValue(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -50,7 +50,9 @@ void TweenComponent::Update()
     DekiTween::TweenManager::Instance().EnsureUpdatedThisFrame();
 
     if (!m_IsPlaying || m_IsPaused)
+    {
         return;
+    }
 
     // Deki::Time returns float milliseconds; convert to seconds.
     float deltaSeconds = Deki::Time::GetDeltaTimeF() / 1000.0f;
@@ -60,7 +62,9 @@ void TweenComponent::Update()
     {
         m_DelayElapsed += deltaSeconds;
         if (m_DelayElapsed < delay)
+        {
             return;
+        }
         // Apply remaining time after delay
         deltaSeconds = m_DelayElapsed - delay;
     }
@@ -140,7 +144,9 @@ void TweenComponent::SetOnComplete(std::function<void()> callback)
 float TweenComponent::GetProgress() const
 {
     if (duration <= 0.0f)
+    {
         return 1.0f;
+    }
     return m_Elapsed / duration;
 }
 
@@ -148,18 +154,16 @@ Deki::Vector3 TweenComponent::GetCurrentValue() const
 {
     Deki::Object* owner = GetOwner();
     if (!owner)
+    {
         return Deki::Vector3(0.0f, 0.0f, 0.0f);
+    }
 
     switch (targetType)
     {
-    case TweenTargetType::Position:
-        return Deki::Vector3(owner->GetX(), owner->GetY(), 0.0f);
-    case TweenTargetType::Scale:
-        return Deki::Vector3(owner->GetScaleX(), owner->GetScaleY(), 0.0f);
-    case TweenTargetType::Rotation:
-        return Deki::Vector3(0.0f, 0.0f, owner->GetLocalRotation());
-    default:
-        return Deki::Vector3(0.0f, 0.0f, 0.0f);
+        case TweenTargetType::Position: return Deki::Vector3(owner->GetX(), owner->GetY(), 0.0f);
+        case TweenTargetType::Scale: return Deki::Vector3(owner->GetScaleX(), owner->GetScaleY(), 0.0f);
+        case TweenTargetType::Rotation: return Deki::Vector3(0.0f, 0.0f, owner->GetLocalRotation());
+        default: return Deki::Vector3(0.0f, 0.0f, 0.0f);
     }
 }
 
@@ -167,7 +171,9 @@ void TweenComponent::ApplyValue(float easedT)
 {
     Deki::Object* owner = GetOwner();
     if (!owner)
+    {
         return;
+    }
 
     // Calculate target value (relative adds to start, absolute uses endValue directly)
     Deki::Vector3 targetValue = relative ? m_StartValue + endValue : endValue;
@@ -177,18 +183,12 @@ void TweenComponent::ApplyValue(float easedT)
 
     switch (targetType)
     {
-    case TweenTargetType::Position:
-        owner->SetLocalPosition(value.x, value.y);
-        break;
-    case TweenTargetType::Scale:
-        owner->SetScale(value.x, value.y);
-        break;
-    case TweenTargetType::Rotation:
-        owner->SetRotation(value.z);
-        break;
-    case TweenTargetType::COUNT:
-        // Not a valid target type, ignore
-        break;
+        case TweenTargetType::Position: owner->SetLocalPosition(value.x, value.y); break;
+        case TweenTargetType::Scale: owner->SetScale(value.x, value.y); break;
+        case TweenTargetType::Rotation: owner->SetRotation(value.z); break;
+        case TweenTargetType::COUNT:
+            // Not a valid target type, ignore
+            break;
     }
 }
 

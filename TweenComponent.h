@@ -51,7 +51,6 @@ DEKI_FORMER_NAME("TweenComponent")
 class DEKI_TWEEN_API TweenComponent : public Deki::Component
 {
 public:
-
     // ========== Inspector Properties ==========
 
     /** @brief Target type to animate */
@@ -80,7 +79,8 @@ public:
 
     /** @brief Easing type */
     DEKI_EXPORT
-    DEKI_TOOLTIP("The shape of the motion. Linear is mechanical; ease-in-out starts and ends gently, which reads as natural for almost everything.")
+    DEKI_TOOLTIP("The shape of the motion. Linear is mechanical; ease-in-out starts and ends gently, which reads as "
+                 "natural for almost everything.")
     DekiTween::EaseType easeType = DekiTween::EaseType::Linear;
 
     /** @brief Number of loops (-1 = infinite, 0 = no loop) */
@@ -101,7 +101,8 @@ public:
 
     /** @brief Use relative values (add to current instead of absolute) */
     DEKI_EXPORT
-    DEKI_TOOLTIP("Treat the end value as an offset from where the object already is, rather than an absolute destination.")
+    DEKI_TOOLTIP(
+        "Treat the end value as an offset from where the object already is, rather than an absolute destination.")
     bool relative = false;
 
     // ========== Runtime Callbacks ==========

@@ -45,17 +45,17 @@
 
 // DLL export macro
 #ifdef DEKI_EDITOR
-    #ifdef _WIN32
-        #ifdef DEKI_TWEEN_EXPORTS
-            #define DEKI_TWEEN_API __declspec(dllexport)
-        #else
-            #define DEKI_TWEEN_API __declspec(dllimport)
-        #endif
-    #else
-        #define DEKI_TWEEN_API
-    #endif
+#ifdef _WIN32
+#ifdef DEKI_TWEEN_EXPORTS
+#define DEKI_TWEEN_API __declspec(dllexport)
 #else
-    #define DEKI_TWEEN_API
+#define DEKI_TWEEN_API __declspec(dllimport)
+#endif
+#else
+#define DEKI_TWEEN_API
+#endif
+#else
+#define DEKI_TWEEN_API
 #endif
 
 // Include all package headers when package is enabled
@@ -66,4 +66,4 @@
 #include "TweenManager.h"
 #include "TweenComponent.h"
 
-#endif // DEKI_PACKAGE_TWEEN
+#endif  // DEKI_PACKAGE_TWEEN

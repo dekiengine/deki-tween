@@ -3,12 +3,13 @@
 #include <deki/profiling/Profiler.h>
 #include <algorithm>
 
-namespace DekiTween {
+namespace DekiTween
+{
 
 TweenManager::TweenManager()
-    : m_NextId(1)
-    , m_IsUpdating(false)
-    , m_LastUpdateTime(0)
+    : m_NextId(1),
+      m_IsUpdating(false),
+      m_LastUpdateTime(0)
 {
 }
 
@@ -27,7 +28,9 @@ void TweenManager::Update(float deltaTimeSeconds)
 {
     DEKI_PROFILE_SCOPE_N("TweenManager::Update");
     if (m_Tweens.empty())
+    {
         return;
+    }
 
     m_IsUpdating = true;
 
@@ -50,10 +53,9 @@ void TweenManager::Update(float deltaTimeSeconds)
     m_TweensToAdd.clear();
 
     // Remove completed tweens
-    m_Tweens.erase(
-        std::remove_if(m_Tweens.begin(), m_Tweens.end(),
-                       [](const std::unique_ptr<ITween>& t) { return !t || t->IsComplete(); }),
-        m_Tweens.end());
+    m_Tweens.erase(std::remove_if(m_Tweens.begin(), m_Tweens.end(),
+                                  [](const std::unique_ptr<ITween>& t) { return !t || t->IsComplete(); }),
+                   m_Tweens.end());
 }
 
 void TweenManager::EnsureUpdatedThisFrame()
@@ -113,7 +115,8 @@ Tween<Deki::Vector2>& TweenManager::To(Deki::Vector2* target, const Deki::Vector
     return FromTo(target, target ? *target : Deki::Vector2::Zero(), endValue, duration);
 }
 
-Tween<Deki::Vector2>& TweenManager::FromTo(Deki::Vector2* target, const Deki::Vector2& startValue, const Deki::Vector2& endValue, float duration)
+Tween<Deki::Vector2>& TweenManager::FromTo(Deki::Vector2* target, const Deki::Vector2& startValue,
+                                           const Deki::Vector2& endValue, float duration)
 {
     auto tween = std::make_unique<Tween<Deki::Vector2>>();
     tween->SetTarget(target).From(startValue).To(endValue).Duration(duration).Start();
@@ -126,7 +129,8 @@ Tween<Deki::Color>& TweenManager::To(Deki::Color* target, const Deki::Color& end
     return FromTo(target, target ? *target : Deki::Color(255, 255, 255), endValue, duration);
 }
 
-Tween<Deki::Color>& TweenManager::FromTo(Deki::Color* target, const Deki::Color& startValue, const Deki::Color& endValue, float duration)
+Tween<Deki::Color>& TweenManager::FromTo(Deki::Color* target, const Deki::Color& startValue,
+                                         const Deki::Color& endValue, float duration)
 {
     auto tween = std::make_unique<Tween<Deki::Color>>();
     tween->SetTarget(target).From(startValue).To(endValue).Duration(duration).Start();
@@ -140,4 +144,4 @@ Tween<float>& TweenManager::DelayedCall(float delay, std::function<void()> callb
     return Instance().AddTween(std::move(tween));
 }
 
-} // namespace DekiTween
+}  // namespace DekiTween

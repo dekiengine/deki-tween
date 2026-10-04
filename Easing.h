@@ -5,20 +5,21 @@
 
 // DLL export macro
 #ifdef DEKI_EDITOR
-    #ifdef _WIN32
-        #ifdef DEKI_TWEEN_EXPORTS
-            #define DEKI_TWEEN_API __declspec(dllexport)
-        #else
-            #define DEKI_TWEEN_API __declspec(dllimport)
-        #endif
-    #else
-        #define DEKI_TWEEN_API
-    #endif
+#ifdef _WIN32
+#ifdef DEKI_TWEEN_EXPORTS
+#define DEKI_TWEEN_API __declspec(dllexport)
 #else
-    #define DEKI_TWEEN_API
+#define DEKI_TWEEN_API __declspec(dllimport)
+#endif
+#else
+#define DEKI_TWEEN_API
+#endif
+#else
+#define DEKI_TWEEN_API
 #endif
 
-namespace DekiTween {
+namespace DekiTween
+{
 
 /**
  * @brief Easing function type: takes normalized progress t in [0,1],
@@ -89,7 +90,8 @@ enum class EaseType : uint8_t
 /**
  * @brief Easing function implementations
  */
-namespace Ease {
+namespace Ease
+{
 
 DEKI_TWEEN_API float Linear(float t);
 
@@ -138,6 +140,6 @@ DEKI_TWEEN_API float BounceInOut(float t);
  */
 DEKI_TWEEN_API EasingFunc GetFunction(EaseType type);
 
-} // namespace Ease
+}  // namespace Ease
 
-} // namespace DekiTween
+}  // namespace DekiTween

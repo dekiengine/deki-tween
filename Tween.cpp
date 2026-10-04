@@ -1,6 +1,7 @@
 #include "Tween.h"
 
-namespace DekiTween {
+namespace DekiTween
+{
 
 // ========== Interpolation Specializations ==========
 // t is normalized progress in [0,1].
@@ -15,7 +16,7 @@ template <>
 int32_t Tween<int32_t>::Interpolate(float t) const
 {
     return static_cast<int32_t>(static_cast<float>(m_StartValue) +
-                                 (static_cast<float>(m_EndValue) - static_cast<float>(m_StartValue)) * t + 0.5f);
+                                (static_cast<float>(m_EndValue) - static_cast<float>(m_StartValue)) * t + 0.5f);
 }
 
 template <>
@@ -30,4 +31,4 @@ Deki::Color Tween<Deki::Color>::Interpolate(float t) const
     return m_StartValue.Lerp(m_EndValue, t);
 }
 
-} // namespace DekiTween
+}  // namespace DekiTween

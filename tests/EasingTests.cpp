@@ -25,7 +25,9 @@ std::vector<EaseType> AllTypes()
 {
     std::vector<EaseType> all;
     for (uint8_t i = 0; i < static_cast<uint8_t>(EaseType::COUNT); ++i)
+    {
         all.push_back(static_cast<EaseType>(i));
+    }
     return all;
 }
 
@@ -34,7 +36,9 @@ std::vector<float> Samples(int n = 101)
 {
     std::vector<float> ts;
     for (int i = 0; i < n; ++i)
+    {
         ts.push_back(static_cast<float>(i) / static_cast<float>(n - 1));
+    }
     return ts;
 }
 
@@ -45,8 +49,9 @@ TEST(Easing, EveryTypeResolvesToAFunction)
     // A type added to the enum but forgotten in GetFunction's switch returns
     // null and crashes at the call site instead of here.
     for (EaseType t : AllTypes())
-        EXPECT_NE(DekiTween::Ease::GetFunction(t), nullptr)
-            << "no function for ease type " << static_cast<int>(t);
+    {
+        EXPECT_NE(DekiTween::Ease::GetFunction(t), nullptr) << "no function for ease type " << static_cast<int>(t);
+    }
 }
 
 TEST(Easing, EveryCurveStartsAtZeroAndEndsAtOne)
@@ -72,8 +77,9 @@ TEST(Easing, EveryCurveIsFiniteAcrossTheInterval)
         auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
         for (float x : Samples())
-            EXPECT_TRUE(std::isfinite(f(x)))
-                << "ease type " << static_cast<int>(t) << " is not finite at t=" << x;
+        {
+            EXPECT_TRUE(std::isfinite(f(x))) << "ease type " << static_cast<int>(t) << " is not finite at t=" << x;
+        }
     }
 }
 
@@ -84,11 +90,12 @@ TEST(Easing, NonOvershootingCurvesStayInRange)
     for (EaseType t : AllTypes())
     {
         const int i = static_cast<int>(t);
-        const bool overshoots =
-            (t == EaseType::BackIn || t == EaseType::BackOut || t == EaseType::BackInOut ||
-             t == EaseType::ElasticIn || t == EaseType::ElasticOut || t == EaseType::ElasticInOut);
+        const bool overshoots = (t == EaseType::BackIn || t == EaseType::BackOut || t == EaseType::BackInOut ||
+                                 t == EaseType::ElasticIn || t == EaseType::ElasticOut || t == EaseType::ElasticInOut);
         if (overshoots)
+        {
             continue;
+        }
 
         auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
@@ -111,11 +118,11 @@ TEST(Easing, InAndOutAreMirrorImages)
         EaseType out;
     };
     const Pair pairs[] = {
-        {EaseType::SineIn, EaseType::SineOut},   {EaseType::QuadIn, EaseType::QuadOut},
-        {EaseType::CubicIn, EaseType::CubicOut}, {EaseType::QuartIn, EaseType::QuartOut},
-        {EaseType::QuintIn, EaseType::QuintOut}, {EaseType::ExpoIn, EaseType::ExpoOut},
-        {EaseType::CircIn, EaseType::CircOut},   {EaseType::BackIn, EaseType::BackOut},
-        {EaseType::BounceIn, EaseType::BounceOut},
+        { EaseType::SineIn, EaseType::SineOut },     { EaseType::QuadIn, EaseType::QuadOut },
+        { EaseType::CubicIn, EaseType::CubicOut },   { EaseType::QuartIn, EaseType::QuartOut },
+        { EaseType::QuintIn, EaseType::QuintOut },   { EaseType::ExpoIn, EaseType::ExpoOut },
+        { EaseType::CircIn, EaseType::CircOut },     { EaseType::BackIn, EaseType::BackOut },
+        { EaseType::BounceIn, EaseType::BounceOut },
     };
     for (const Pair& p : pairs)
     {
@@ -124,9 +131,11 @@ TEST(Easing, InAndOutAreMirrorImages)
         ASSERT_NE(in, nullptr);
         ASSERT_NE(out, nullptr);
         for (float x : Samples(21))
+        {
             EXPECT_NEAR(out(x), 1.0f - in(1.0f - x), 1e-4f)
                 << "ease types " << static_cast<int>(p.in) << "/" << static_cast<int>(p.out)
                 << " are not mirrored at t=" << x;
+        }
     }
 }
 
@@ -145,8 +154,10 @@ TEST(Easing, InOutCurvesAreSymmetricAboutTheMidpoint)
         ASSERT_NE(f, nullptr);
         EXPECT_NEAR(f(0.5f), 0.5f, 1e-4f) << "ease type " << static_cast<int>(t) << " midpoint";
         for (float x : Samples(21))
+        {
             EXPECT_NEAR(f(x) + f(1.0f - x), 1.0f, 1e-4f)
                 << "ease type " << static_cast<int>(t) << " asymmetric at t=" << x;
+        }
     }
 }
 
@@ -156,13 +167,13 @@ TEST(Easing, MonotonicCurvesNeverGoBackwards)
     // Overshooting and bouncing curves are meant to reverse; the rest are not.
     for (EaseType t : AllTypes())
     {
-        const bool mayReverse =
-            (t == EaseType::BackIn || t == EaseType::BackOut || t == EaseType::BackInOut ||
-             t == EaseType::ElasticIn || t == EaseType::ElasticOut ||
-             t == EaseType::ElasticInOut || t == EaseType::BounceIn || t == EaseType::BounceOut ||
-             t == EaseType::BounceInOut);
+        const bool mayReverse = (t == EaseType::BackIn || t == EaseType::BackOut || t == EaseType::BackInOut ||
+                                 t == EaseType::ElasticIn || t == EaseType::ElasticOut || t == EaseType::ElasticInOut ||
+                                 t == EaseType::BounceIn || t == EaseType::BounceOut || t == EaseType::BounceInOut);
         if (mayReverse)
+        {
             continue;
+        }
 
         auto f = DekiTween::Ease::GetFunction(t);
         ASSERT_NE(f, nullptr);
@@ -170,8 +181,7 @@ TEST(Easing, MonotonicCurvesNeverGoBackwards)
         for (float x : Samples())
         {
             const float y = f(x);
-            EXPECT_GE(y, previous - 1e-5f)
-                << "ease type " << static_cast<int>(t) << " decreases at t=" << x;
+            EXPECT_GE(y, previous - 1e-5f) << "ease type " << static_cast<int>(t) << " decreases at t=" << x;
             previous = y;
         }
     }
@@ -182,5 +192,7 @@ TEST(Easing, LinearIsTheIdentity)
     auto f = DekiTween::Ease::GetFunction(EaseType::Linear);
     ASSERT_NE(f, nullptr);
     for (float x : Samples(21))
+    {
         EXPECT_FLOAT_EQ(f(x), x);
+    }
 }

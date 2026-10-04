@@ -37,103 +37,103 @@ namespace DekiTween
 // Track if already registered to avoid duplicates
 static bool s_TweenRegistered = false;
 
-
 // The exports below are C symbols at global scope; the package's own
 // registration helpers and statics live in its namespace.
 using namespace DekiTween;
 
-extern "C" {
-
-/**
- * @brief Ensure deki-tween package is loaded and components are registered
- *
- * Call this from the editor at startup. Simply calling this function is enough
- * to force the linker to include the DLL and trigger static initializers.
- *
- * @return Number of components registered by this package
- */
-DEKI_TWEEN_API int DekiTween_EnsureRegistered(void)
+extern "C"
 {
-    if (s_TweenRegistered)
+    /**
+     * @brief Ensure deki-tween package is loaded and components are registered
+     *
+     * Call this from the editor at startup. Simply calling this function is enough
+     * to force the linker to include the DLL and trigger static initializers.
+     *
+     * @return Number of components registered by this package
+     */
+    DEKI_TWEEN_API int DekiTween_EnsureRegistered(void)
+    {
+        if (s_TweenRegistered)
+        {
+            return ::DekiTween_GetAutoComponentCount();
+        }
+        s_TweenRegistered = true;
+
+        // Auto-generated: registers all Tween components with ComponentRegistry + ComponentFactory
+        ::DekiTween_RegisterComponents();
+
         return ::DekiTween_GetAutoComponentCount();
-    s_TweenRegistered = true;
+    }
 
-    // Auto-generated: registers all Tween components with ComponentRegistry + ComponentFactory
-    ::DekiTween_RegisterComponents();
-
-    return ::DekiTween_GetAutoComponentCount();
-}
-
-} // extern "C"
+}  // extern "C"
 
 // =============================================================================
 // Plugin metadata (for dynamic loading compatibility)
 // =============================================================================
 
-extern "C" {
-
-DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
+extern "C"
 {
-    return "Deki Tween Package";
-}
+    DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
+    {
+        return "Deki Tween Package";
+    }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
-{
+    DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
+    {
 #ifdef DEKI_PACKAGE_VERSION
-    return DEKI_PACKAGE_VERSION;
+        return DEKI_PACKAGE_VERSION;
 #else
-    return "0.0.0-dev";
+        return "0.0.0-dev";
 #endif
-}
+    }
 
-DEKI_PLUGIN_API int DekiPlugin_Init(void)
-{
-    // Ticks TweenManager from the engine's update loop, so programmatic tweens
-    // run without a TweenComponent in the scene.
-    DekiTween_InitSystem();
-    return 0;
-}
+    DEKI_PLUGIN_API int DekiPlugin_Init(void)
+    {
+        // Ticks TweenManager from the engine's update loop, so programmatic tweens
+        // run without a TweenComponent in the scene.
+        DekiTween_InitSystem();
+        return 0;
+    }
 
-DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
-{
-    DekiTween_ShutdownSystem();
-    s_TweenRegistered = false;
-}
+    DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
+    {
+        DekiTween_ShutdownSystem();
+        s_TweenRegistered = false;
+    }
 
-DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
-{
-    return ::DekiTween_GetAutoComponentCount();
-}
+    DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
+    {
+        return ::DekiTween_GetAutoComponentCount();
+    }
 
-DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
-{
-    return ::DekiTween_GetAutoComponentMeta(index);
-}
+    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
+    {
+        return ::DekiTween_GetAutoComponentMeta(index);
+    }
 
-DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
-{
-    DekiTween_EnsureRegistered();
-}
+    DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
+    {
+        DekiTween_EnsureRegistered();
+    }
 
-DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
-{
-    DekiTween::TweenManager::Instance().KillAll();
-}
+    DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
+    {
+        DekiTween::TweenManager::Instance().KillAll();
+    }
 
-// deki-tween renders no editor UI of its own, so it links no ImGui and shares no
-// ImGui context. Its component inspectors are drawn by the editor via reflection.
+    // deki-tween renders no editor UI of its own, so it links no ImGui and shares no
+    // ImGui context. Its component inspectors are drawn by the editor via reflection.
 
-// =============================================================================
-// Package-specific feature API (for linked DLL access without name conflicts)
-// =============================================================================
+    // =============================================================================
+    // Package-specific feature API (for linked DLL access without name conflicts)
+    // =============================================================================
 
-DEKI_TWEEN_API const char* DekiTween_GetName(void)
-{
-    return "Tween";
-}
+    DEKI_TWEEN_API const char* DekiTween_GetName(void)
+    {
+        return "Tween";
+    }
 
-} // extern "C"
+}  // extern "C"
 
-#endif // DEKI_EDITOR
+#endif  // DEKI_EDITOR
 }  // namespace DekiTween
-
