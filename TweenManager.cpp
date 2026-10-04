@@ -20,8 +20,8 @@ TweenManager::~TweenManager()
 
 TweenManager& TweenManager::Instance()
 {
-    static TweenManager instance;
-    return instance;
+    static TweenManager s_Instance;
+    return s_Instance;
 }
 
 void TweenManager::Update(float deltaTimeSeconds)

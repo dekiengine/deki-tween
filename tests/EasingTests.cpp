@@ -24,7 +24,7 @@ using DekiTween::EaseType;
 std::vector<EaseType> AllTypes()
 {
     std::vector<EaseType> all;
-    for (uint8_t i = 0; i < static_cast<uint8_t>(EaseType::COUNT); ++i)
+    for (uint8_t i = 0; i < static_cast<uint8_t>(EaseType::Count); ++i)
     {
         all.push_back(static_cast<EaseType>(i));
     }

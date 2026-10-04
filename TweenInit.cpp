@@ -12,7 +12,7 @@ size_t s_UpdateId = kNotRegistered;
 }  // namespace
 
 // Global scope, matching TweenInit.h — see the comment there.
-void DekiTween_InitSystem()
+void DekiTweenInitSystem()
 {
     if (s_UpdateId != kNotRegistered)
     {
@@ -28,7 +28,7 @@ void DekiTween_InitSystem()
     DEKI_LOG_INTERNAL("DekiTween: tween manager hooked into the engine update");
 }
 
-void DekiTween_ShutdownSystem()
+void DekiTweenShutdownSystem()
 {
     if (s_UpdateId == kNotRegistered)
     {

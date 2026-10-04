@@ -84,7 +84,7 @@ enum class EaseType : uint8_t
     BounceOut,
     BounceInOut,
 
-    COUNT
+    Count
 };
 
 /**

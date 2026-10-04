@@ -5,7 +5,7 @@
  * This file exports the standard Deki plugin interface so the editor
  * can load deki-tween.dll and register its components (TweenComponent).
  *
- * For linked DLLs (not dynamically loaded), DekiTween_EnsureRegistered()
+ * For linked DLLs (not dynamically loaded), DekiTweenEnsureRegistered()
  * must be called from the main executable to trigger the static initializers.
  */
 
@@ -16,9 +16,9 @@
 #include <deki/reflection/ComponentRegistry.h>
 #include <deki/reflection/ComponentFactory.h>
 
-extern void DekiTween_RegisterComponents();
-extern int DekiTween_GetAutoComponentCount();
-extern const Deki::ComponentMeta* DekiTween_GetAutoComponentMeta(int index);
+extern void DekiTweenRegisterComponents();
+extern int DekiTweenGetAutoComponentCount();
+extern const Deki::ComponentMeta* DekiTweenGetAutoComponentMeta(int index);
 
 namespace DekiTween
 {
@@ -51,18 +51,18 @@ extern "C"
      *
      * @return Number of components registered by this package
      */
-    DEKI_TWEEN_API int DekiTween_EnsureRegistered(void)
+    DEKI_TWEEN_API int DekiTweenEnsureRegistered(void)
     {
         if (s_TweenRegistered)
         {
-            return ::DekiTween_GetAutoComponentCount();
+            return ::DekiTweenGetAutoComponentCount();
         }
         s_TweenRegistered = true;
 
         // Auto-generated: registers all Tween components with ComponentRegistry + ComponentFactory
-        ::DekiTween_RegisterComponents();
+        ::DekiTweenRegisterComponents();
 
-        return ::DekiTween_GetAutoComponentCount();
+        return ::DekiTweenGetAutoComponentCount();
     }
 
 }  // extern "C"
@@ -73,12 +73,12 @@ extern "C"
 
 extern "C"
 {
-    DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
+    DEKI_PLUGIN_API const char* DekiPluginGetName(void)
     {
         return "Deki Tween Package";
     }
 
-    DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
+    DEKI_PLUGIN_API const char* DekiPluginGetVersion(void)
     {
 #ifdef DEKI_PACKAGE_VERSION
         return DEKI_PACKAGE_VERSION;
@@ -87,36 +87,36 @@ extern "C"
 #endif
     }
 
-    DEKI_PLUGIN_API int DekiPlugin_Init(void)
+    DEKI_PLUGIN_API int DekiPluginInit(void)
     {
         // Ticks TweenManager from the engine's update loop, so programmatic tweens
         // run without a TweenComponent in the scene.
-        DekiTween_InitSystem();
+        DekiTweenInitSystem();
         return 0;
     }
 
-    DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
+    DEKI_PLUGIN_API void DekiPluginShutdown(void)
     {
-        DekiTween_ShutdownSystem();
+        DekiTweenShutdownSystem();
         s_TweenRegistered = false;
     }
 
-    DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
+    DEKI_PLUGIN_API int DekiPluginGetComponentCount(void)
     {
-        return ::DekiTween_GetAutoComponentCount();
+        return ::DekiTweenGetAutoComponentCount();
     }
 
-    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
+    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPluginGetComponentMeta(int index)
     {
-        return ::DekiTween_GetAutoComponentMeta(index);
+        return ::DekiTweenGetAutoComponentMeta(index);
     }
 
-    DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
+    DEKI_PLUGIN_API void DekiPluginRegisterComponents(void)
     {
-        DekiTween_EnsureRegistered();
+        DekiTweenEnsureRegistered();
     }
 
-    DEKI_PLUGIN_API void DekiPlugin_OnPlayModeStop(void)
+    DEKI_PLUGIN_API void DekiPluginOnPlayModeStop(void)
     {
         DekiTween::TweenManager::Instance().KillAll();
     }
@@ -128,7 +128,7 @@ extern "C"
     // Package-specific feature API (for linked DLL access without name conflicts)
     // =============================================================================
 
-    DEKI_TWEEN_API const char* DekiTween_GetName(void)
+    DEKI_TWEEN_API const char* DekiTweenGetName(void)
     {
         return "Tween";
     }

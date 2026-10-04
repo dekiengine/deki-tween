@@ -24,7 +24,7 @@ enum class TweenTargetType : uint8_t
     Position = 0,  // Animate X,Y position
     Scale,         // Animate X,Y scale
     Rotation,      // Animate rotation (uses Z component)
-    COUNT
+    Count
 };
 
 /**
@@ -107,8 +107,8 @@ public:
 
     // ========== Runtime Callbacks ==========
 
-    std::function<void()> on_complete;
-    std::function<void(float progress)> on_update;
+    std::function<void()> onComplete;
+    std::function<void(float progress)> onUpdate;
 
     // ========== Lifecycle ==========
 

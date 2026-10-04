@@ -190,23 +190,23 @@ float CircInOut(float t)
 }
 
 // Back constants (Penner: c1 = 1.70158, c2 = c1 * 1.525, c3 = c1 + 1).
-static constexpr float kBack_c1 = 1.70158f;
-static constexpr float kBack_c2 = 1.70158f * 1.525f;
-static constexpr float kBack_c3 = 1.70158f + 1.0f;
+static constexpr float kBackC1 = 1.70158f;
+static constexpr float kBackC2 = 1.70158f * 1.525f;
+static constexpr float kBackC3 = 1.70158f + 1.0f;
 
 float BackIn(float t)
 {
     // c3*t^3 - c1*t^2
     float t2 = t * t;
-    return kBack_c3 * t2 * t - kBack_c1 * t2;
+    return kBackC3 * t2 * t - kBackC1 * t2;
 }
 
 float BackOut(float t)
 {
     // 1 + c3*(t-1)^3 + c1*(t-1)^2
     float tm1 = t - 1.0f;
-    float tm1_2 = tm1 * tm1;
-    return 1.0f + kBack_c3 * tm1_2 * tm1 + kBack_c1 * tm1_2;
+    float tm12 = tm1 * tm1;
+    return 1.0f + kBackC3 * tm12 * tm1 + kBackC1 * tm12;
 }
 
 float BackInOut(float t)
@@ -214,15 +214,15 @@ float BackInOut(float t)
     if (t < 0.5f)
     {
         float twoT = 2.0f * t;
-        return (twoT * twoT * ((kBack_c2 + 1.0f) * twoT - kBack_c2)) * 0.5f;
+        return (twoT * twoT * ((kBackC2 + 1.0f) * twoT - kBackC2)) * 0.5f;
     }
     float base = 2.0f * t - 2.0f;
-    return (base * base * ((kBack_c2 + 1.0f) * (t * 2.0f - 2.0f) + kBack_c2) + 2.0f) * 0.5f;
+    return (base * base * ((kBackC2 + 1.0f) * (t * 2.0f - 2.0f) + kBackC2) + 2.0f) * 0.5f;
 }
 
 // Elastic. Penner uses sin arguments in radians: (2pi)/3 and (2pi)/4.5.
-static constexpr float kElastic_c4Rad = 2.0f * Deki::Math::kPi / 3.0f;
-static constexpr float kElastic_c5Rad = 2.0f * Deki::Math::kPi / 4.5f;
+static constexpr float kElasticC4Rad = 2.0f * Deki::Math::kPi / 3.0f;
+static constexpr float kElasticC5Rad = 2.0f * Deki::Math::kPi / 4.5f;
 
 float ElasticIn(float t)
 {
@@ -235,7 +235,7 @@ float ElasticIn(float t)
         return 1.0f;
     }
     float amp = std::pow(2.0f, 10.0f * t - 10.0f);
-    float phaseRad = (t * 10.0f - 10.75f) * kElastic_c4Rad;
+    float phaseRad = (t * 10.0f - 10.75f) * kElasticC4Rad;
     return -amp * std::sin(phaseRad);
 }
 
@@ -250,7 +250,7 @@ float ElasticOut(float t)
         return 1.0f;
     }
     float amp = std::pow(2.0f, -10.0f * t);
-    float phaseRad = (t * 10.0f - 0.75f) * kElastic_c4Rad;
+    float phaseRad = (t * 10.0f - 0.75f) * kElasticC4Rad;
     return amp * std::sin(phaseRad) + 1.0f;
 }
 
@@ -264,7 +264,7 @@ float ElasticInOut(float t)
     {
         return 1.0f;
     }
-    float phaseRad = (20.0f * t - 11.125f) * kElastic_c5Rad;
+    float phaseRad = (20.0f * t - 11.125f) * kElasticC5Rad;
     float s = std::sin(phaseRad);
     if (t < 0.5f)
     {
@@ -276,37 +276,37 @@ float ElasticInOut(float t)
 }
 
 // Bounce. n1 = 7.5625, d1 = 2.75. Splits 0..1 into four bounces.
-static constexpr float kBounce_n1 = 7.5625f;
-static constexpr float kBounce_t1 = 1.0f / 2.75f;
-static constexpr float kBounce_t2 = 2.0f / 2.75f;
-static constexpr float kBounce_t3 = 2.5f / 2.75f;
-static constexpr float kBounce_o1 = 1.5f / 2.75f;
-static constexpr float kBounce_o2 = 2.25f / 2.75f;
-static constexpr float kBounce_o3 = 2.625f / 2.75f;
-static constexpr float kBounce_b2 = 0.75f;
-static constexpr float kBounce_b3 = 0.9375f;
-static constexpr float kBounce_b4 = 0.984375f;
+static constexpr float kBounceN1 = 7.5625f;
+static constexpr float kBounceT1 = 1.0f / 2.75f;
+static constexpr float kBounceT2 = 2.0f / 2.75f;
+static constexpr float kBounceT3 = 2.5f / 2.75f;
+static constexpr float kBounceO1 = 1.5f / 2.75f;
+static constexpr float kBounceO2 = 2.25f / 2.75f;
+static constexpr float kBounceO3 = 2.625f / 2.75f;
+static constexpr float kBounceB2 = 0.75f;
+static constexpr float kBounceB3 = 0.9375f;
+static constexpr float kBounceB4 = 0.984375f;
 
 static float BounceOutImpl(float t)
 {
-    if (t < kBounce_t1)
+    if (t < kBounceT1)
     {
-        return kBounce_n1 * t * t;
+        return kBounceN1 * t * t;
     }
-    else if (t < kBounce_t2)
+    else if (t < kBounceT2)
     {
-        float tt = t - kBounce_o1;
-        return kBounce_n1 * tt * tt + kBounce_b2;
+        float tt = t - kBounceO1;
+        return kBounceN1 * tt * tt + kBounceB2;
     }
-    else if (t < kBounce_t3)
+    else if (t < kBounceT3)
     {
-        float tt = t - kBounce_o2;
-        return kBounce_n1 * tt * tt + kBounce_b3;
+        float tt = t - kBounceO2;
+        return kBounceN1 * tt * tt + kBounceB3;
     }
     else
     {
-        float tt = t - kBounce_o3;
-        return kBounce_n1 * tt * tt + kBounce_b4;
+        float tt = t - kBounceO3;
+        return kBounceN1 * tt * tt + kBounceB4;
     }
 }
 

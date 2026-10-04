@@ -84,9 +84,9 @@ void TweenComponent::Update()
     ApplyValue(easedT);
 
     // Call update callback
-    if (on_update)
+    if (onUpdate)
     {
-        on_update(progress);
+        onUpdate(progress);
     }
 
     // Check completion
@@ -138,7 +138,7 @@ void TweenComponent::Stop()
 
 void TweenComponent::SetOnComplete(std::function<void()> callback)
 {
-    on_complete = callback;
+    onComplete = callback;
 }
 
 float TweenComponent::GetProgress() const
@@ -186,7 +186,7 @@ void TweenComponent::ApplyValue(float easedT)
         case TweenTargetType::Position: owner->SetLocalPosition(value.x, value.y); break;
         case TweenTargetType::Scale: owner->SetScale(value.x, value.y); break;
         case TweenTargetType::Rotation: owner->SetRotation(value.z); break;
-        case TweenTargetType::COUNT:
+        case TweenTargetType::Count:
             // Not a valid target type, ignore
             break;
     }
@@ -217,9 +217,9 @@ void TweenComponent::HandleLoopOrComplete()
         m_IsPlaying = false;
         m_HasCompleted = true;
 
-        if (on_complete)
+        if (onComplete)
         {
-            on_complete();
+            onComplete();
         }
     }
 }
