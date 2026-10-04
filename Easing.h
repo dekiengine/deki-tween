@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <deki/Math.h>
 
-// DLL export macro
 #ifdef DEKI_EDITOR
 #ifdef _WIN32
 #ifdef DEKI_TWEEN_EXPORTS
@@ -21,15 +20,10 @@
 namespace DekiTween
 {
 
-/**
- * @brief Easing function type: takes normalized progress t in [0,1],
- * returns eased value.
- */
+/// An easing function: takes progress t in [0,1] and returns the eased value.
 using EasingFunc = float (*)(float t);
 
-/**
- * @brief Easing types enum for serialization and editor selection
- */
+/// The easing curves, by name, for serialization and the editor's picker.
 enum class EaseType : uint8_t
 {
     Linear = 0,
@@ -87,9 +81,6 @@ enum class EaseType : uint8_t
     Count
 };
 
-/**
- * @brief Easing function implementations
- */
 namespace Ease
 {
 
@@ -135,9 +126,7 @@ DEKI_TWEEN_API float BounceIn(float t);
 DEKI_TWEEN_API float BounceOut(float t);
 DEKI_TWEEN_API float BounceInOut(float t);
 
-/**
- * @brief Get easing function by type enum
- */
+/// The easing function for `type`.
 DEKI_TWEEN_API EasingFunc GetFunction(EaseType type);
 
 }  // namespace Ease

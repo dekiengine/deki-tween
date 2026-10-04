@@ -1,13 +1,9 @@
-/**
- * @file TweenPackage.cpp
- * @brief Package entry point for deki-tween DLL
- *
- * This file exports the standard Deki plugin interface so the editor
- * can load deki-tween.dll and register its components (TweenComponent).
- *
- * For linked DLLs (not dynamically loaded), DekiTweenEnsureRegistered()
- * must be called from the main executable to trigger the static initializers.
- */
+// Package entry point of the deki-tween DLL: exports the standard Deki plugin
+// interface so the editor can load it and register its components
+// (TweenComponent).
+//
+// When the DLL is linked instead of loaded at run time, the main executable
+// must call DekiTweenEnsureRegistered() to run the static initializers.
 
 #include <deki/interop/Plugin.h>
 #include "TweenComponent.h"
@@ -28,13 +24,11 @@ namespace DekiTween
 // =============================================================================
 // Linked DLL initialization
 // =============================================================================
-// When deki-tween is linked (not dynamically loaded), the editor must call
-// this function to ensure the DLL code is actually loaded and the static
+// When deki-tween is linked, not loaded at run time, the editor calls
+// DekiTweenEnsureRegistered so the DLL is really loaded and its static
 // initializers (REGISTER_COMPONENT) have run.
 
-// Auto-generated registration helpers
-
-// Track if already registered to avoid duplicates
+// Set once registered, so a second call does not register twice.
 static bool s_TweenRegistered = false;
 
 // The exports below are C symbols at global scope; the package's own
@@ -43,14 +37,9 @@ using namespace DekiTween;
 
 extern "C"
 {
-    /**
-     * @brief Ensure deki-tween package is loaded and components are registered
-     *
-     * Call this from the editor at startup. Simply calling this function is enough
-     * to force the linker to include the DLL and trigger static initializers.
-     *
-     * @return Number of components registered by this package
-     */
+    /// Registers the package's components once and returns how many there
+    /// are. Call from the editor at startup: the call alone makes the linker
+    /// include the DLL and run its static initializers.
     DEKI_TWEEN_API int DekiTweenEnsureRegistered(void)
     {
         if (s_TweenRegistered)
@@ -59,7 +48,7 @@ extern "C"
         }
         s_TweenRegistered = true;
 
-        // Auto-generated: registers all Tween components with ComponentRegistry + ComponentFactory
+        // Generated: registers every Tween component with ComponentRegistry and ComponentFactory.
         ::DekiTweenRegisterComponents();
 
         return ::DekiTweenGetAutoComponentCount();
@@ -68,7 +57,7 @@ extern "C"
 }  // extern "C"
 
 // =============================================================================
-// Plugin metadata (for dynamic loading compatibility)
+// Plugin metadata, for loading as a DLL
 // =============================================================================
 
 extern "C"
@@ -125,7 +114,7 @@ extern "C"
     // ImGui context. Its component inspectors are drawn by the editor via reflection.
 
     // =============================================================================
-    // Package-specific feature API (for linked DLL access without name conflicts)
+    // Package-specific API, named so linked DLLs do not clash
     // =============================================================================
 
     DEKI_TWEEN_API const char* DekiTweenGetName(void)

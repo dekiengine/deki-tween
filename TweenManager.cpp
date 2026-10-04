@@ -34,7 +34,6 @@ void TweenManager::Update(float deltaTimeSeconds)
 
     m_IsUpdating = true;
 
-    // Update all tweens
     for (auto& tween : m_Tweens)
     {
         if (tween && !tween->IsComplete())
@@ -45,14 +44,13 @@ void TweenManager::Update(float deltaTimeSeconds)
 
     m_IsUpdating = false;
 
-    // Add any tweens that were created during update
+    // Add the tweens created during the update.
     for (auto& tween : m_TweensToAdd)
     {
         m_Tweens.push_back(std::move(tween));
     }
     m_TweensToAdd.clear();
 
-    // Remove completed tweens
     m_Tweens.erase(std::remove_if(m_Tweens.begin(), m_Tweens.end(),
                                   [](const std::unique_ptr<ITween>& t) { return !t || t->IsComplete(); }),
                    m_Tweens.end());
@@ -62,7 +60,6 @@ void TweenManager::EnsureUpdatedThisFrame()
 {
     uint32_t currentTime = Deki::Time::GetTime();
 
-    // Only update if we haven't already this frame
     if (currentTime != m_LastUpdateTime)
     {
         m_LastUpdateTime = currentTime;
@@ -125,7 +122,7 @@ Tween<Deki::Vector2>& TweenManager::FromTo(Deki::Vector2* target, const Deki::Ve
 
 Tween<Deki::Color>& TweenManager::To(Deki::Color* target, const Deki::Color& endValue, float duration)
 {
-    // Use inline Deki::Color constructor instead of Deki::Color::White to avoid dllimport issues
+    // Deki::Color(255, 255, 255), not Deki::Color::White, which fails across the DLL boundary (dllimport).
     return FromTo(target, target ? *target : Deki::Color(255, 255, 255), endValue, duration);
 }
 

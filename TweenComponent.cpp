@@ -33,7 +33,7 @@ TweenComponent::~TweenComponent()
 
 void TweenComponent::Awake()
 {
-    // Nothing to cache - we capture start value when Play() is called
+    // Nothing to cache: Play() captures the start value.
 }
 
 void TweenComponent::Start()
@@ -46,7 +46,7 @@ void TweenComponent::Start()
 
 void TweenComponent::Update()
 {
-    // Also update the global TweenManager for static API tweens
+    // Also update the global TweenManager, for tweens made through the static API.
     DekiTween::TweenManager::Instance().EnsureUpdatedThisFrame();
 
     if (!m_IsPlaying || m_IsPaused)
@@ -57,7 +57,6 @@ void TweenComponent::Update()
     // Deki::Time returns float milliseconds; convert to seconds.
     float deltaSeconds = Deki::Time::GetDeltaTimeF() / 1000.0f;
 
-    // Handle delay
     if (m_DelayElapsed < delay)
     {
         m_DelayElapsed += deltaSeconds;
@@ -65,7 +64,7 @@ void TweenComponent::Update()
         {
             return;
         }
-        // Apply remaining time after delay
+        // Use the time left over after the delay.
         deltaSeconds = m_DelayElapsed - delay;
     }
 
@@ -76,20 +75,16 @@ void TweenComponent::Update()
         progress = 1.0f;
     }
 
-    // Apply easing
     float t = m_Reversed ? (1.0f - progress) : progress;
     float easedT = GetEasedProgress(t);
 
-    // Apply interpolated value
     ApplyValue(easedT);
 
-    // Call update callback
     if (onUpdate)
     {
         onUpdate(progress);
     }
 
-    // Check completion
     if (progress >= 1.0f)
     {
         HandleLoopOrComplete();
@@ -106,7 +101,6 @@ void TweenComponent::Play()
     m_CurrentLoop = 0;
     m_Reversed = false;
 
-    // Capture current value as start value
     m_StartValue = GetCurrentValue();
 }
 
@@ -175,10 +169,9 @@ void TweenComponent::ApplyValue(float easedT)
         return;
     }
 
-    // Calculate target value (relative adds to start, absolute uses endValue directly)
+    // Relative adds endValue to the start; absolute uses it as is.
     Deki::Vector3 targetValue = relative ? m_StartValue + endValue : endValue;
 
-    // Interpolate from start to target.
     Deki::Vector3 value = Deki::Vector3::Lerp(m_StartValue, targetValue, easedT);
 
     switch (targetType)
@@ -187,7 +180,7 @@ void TweenComponent::ApplyValue(float easedT)
         case TweenTargetType::Scale: owner->SetScale(value.x, value.y); break;
         case TweenTargetType::Rotation: owner->SetRotation(value.z); break;
         case TweenTargetType::Count:
-            // Not a valid target type, ignore
+            // Not a real target type
             break;
     }
 }
@@ -200,7 +193,6 @@ float TweenComponent::GetEasedProgress(float t) const
 
 void TweenComponent::HandleLoopOrComplete()
 {
-    // Check if we should loop
     if (loops == -1 || m_CurrentLoop < loops - 1)
     {
         m_CurrentLoop++;
@@ -213,7 +205,6 @@ void TweenComponent::HandleLoopOrComplete()
     }
     else
     {
-        // Complete
         m_IsPlaying = false;
         m_HasCompleted = true;
 

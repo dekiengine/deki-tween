@@ -7,9 +7,9 @@ namespace DekiTween
 namespace Ease
 {
 
-// Easing math runs in plain float. The engine convention is radians for all
-// angular arguments, so trig functions get their arguments in radians directly
-// (e.g. "t * pi" stays "t * Deki::Math::kPi", "t * pi/2" becomes "t * kHalfPi").
+// Easing math runs in plain float. Angles are in radians, as everywhere in the
+// engine, so the trig calls take Penner's arguments as they are ("t * pi" is
+// "t * Deki::Math::kPi", "t * pi/2" is "t * kHalfPi").
 
 float Linear(float t)
 {

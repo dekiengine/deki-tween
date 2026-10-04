@@ -22,10 +22,10 @@ public:
     void OnInspectorGUI(Deki::Component* comp) override
     {
         auto& ui = DekiEditor::EditorUI::Get();
-        // Draw all default properties first
+        // The default properties first
         ui.DrawDefaultInspector();
 
-        // Show calculated total duration
+        // Then the total duration, worked out
         auto* tween = static_cast<DekiTween::TweenComponent*>(comp);
         ui.Space();
         ui.Separator();

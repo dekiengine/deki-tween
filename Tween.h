@@ -9,20 +9,15 @@
 namespace DekiTween
 {
 
-/**
- * @brief Tween state enum
- */
 enum class TweenState : uint8_t
 {
-    Idle,      // Not started or completed
-    Running,   // Currently animating
+    Idle,      // Not started
+    Running,   // Animating
     Paused,    // Paused mid-animation
     Completed  // Finished (ready for removal or restart)
 };
 
-/**
- * @brief Base tween interface for type-erased storage in TweenManager
- */
+/// The tween interface TweenManager stores, whatever the value type.
 class DEKI_TWEEN_API ITween
 {
 public:
@@ -36,15 +31,11 @@ public:
     virtual TweenState GetState() const = 0;
     virtual void Restart() = 0;
 
-    // Unique ID for lookup
+    // Unique, for lookup
     uint32_t id = 0;
 };
 
-/**
- * @brief Templated tween for specific value types
- *
- * Supports: float, int32_t, Deki::Vector2, Deki::Color
- */
+/// A tween of one value type: float, int32_t, Deki::Vector2 or Deki::Color.
 template <typename T>
 class Tween : public ITween
 {
@@ -74,108 +65,81 @@ public:
 
     // ========== Configuration (Fluent API) ==========
 
-    /**
-     * @brief Set the target pointer to modify directly
-     */
+    /// The value the tween writes to directly.
     Tween<T>& SetTarget(T* target)
     {
         m_Target = target;
         return *this;
     }
 
-    /**
-     * @brief Set start value
-     */
     Tween<T>& From(const T& startValue)
     {
         m_StartValue = startValue;
         return *this;
     }
 
-    /**
-     * @brief Set end value
-     */
     Tween<T>& To(const T& endValue)
     {
         m_EndValue = endValue;
         return *this;
     }
 
-    /**
-     * @brief Set duration in seconds.
-     */
+    /// Duration in seconds.
     Tween<T>& Duration(float seconds)
     {
         m_Duration = seconds > 0.0f ? seconds : 0.001f;
         return *this;
     }
 
-    /**
-     * @brief Set easing function by type
-     */
     Tween<T>& SetEase(EaseType ease)
     {
         m_EaseFunc = Ease::GetFunction(ease);
         return *this;
     }
 
-    /**
-     * @brief Set easing function directly
-     */
+    /// A custom easing function; null means linear.
     Tween<T>& SetEase(EasingFunc easeFunc)
     {
         m_EaseFunc = easeFunc ? easeFunc : Ease::Linear;
         return *this;
     }
 
-    /**
-     * @brief Set delay before starting (seconds).
-     */
+    /// Delay before starting, in seconds.
     Tween<T>& Delay(float seconds)
     {
         m_Delay = seconds > 0.0f ? seconds : 0.0f;
         return *this;
     }
 
-    /**
-     * @brief Set number of loops (-1 = infinite, 0 = no loop)
-     */
+    /// Number of loops: -1 = forever, 0 = play once.
     Tween<T>& SetLoops(int32_t loops)
     {
         m_Loops = loops;
         return *this;
     }
 
-    /**
-     * @brief Enable ping-pong (reverse on each loop)
-     */
+    /// Ping-pong: reverse direction on each loop.
     Tween<T>& SetPingPong(bool pingPong)
     {
         m_PingPong = pingPong;
         return *this;
     }
 
-    /**
-     * @brief Set update callback (called each frame with current value)
-     */
+    /// Called each frame with the current value.
     Tween<T>& OnUpdate(UpdateCallback callback)
     {
         m_OnUpdate = callback;
         return *this;
     }
 
-    /**
-     * @brief Set completion callback
-     */
+    /// Called once the tween finishes; Kill() does not call it.
     Tween<T>& OnComplete(CompleteCallback callback)
     {
         m_OnComplete = callback;
         return *this;
     }
 
-    /**
-     * @brief Start the tween (auto-called by TweenManager when added)
-     */
+    /// Starts the tween. TweenManager calls it when the tween is added.
     Tween<T>& Start()
     {
         if (m_State == TweenState::Idle || m_State == TweenState::Completed)
@@ -205,7 +169,6 @@ public:
 
         float dt = deltaTimeSeconds;
 
-        // Handle delay
         if (m_DelayElapsed < m_Delay)
         {
             m_DelayElapsed += dt;
@@ -213,7 +176,7 @@ public:
             {
                 return;
             }
-            // Apply remaining time after delay
+            // Use the time left over after the delay.
             dt = m_DelayElapsed - m_Delay;
         }
 
@@ -225,17 +188,13 @@ public:
             progress = 1.0f;
         }
 
-        // Apply easing
         float easedInput = m_Reversed ? (1.0f - progress) : progress;
         float easedProgress = m_EaseFunc(easedInput);
 
-        // Interpolate
         m_CurrentValue = Interpolate(easedProgress);
 
-        // Apply value
         ApplyValue();
 
-        // Check completion
         if (progress >= 1.0f)
         {
             HandleLoopOrComplete();
@@ -247,7 +206,7 @@ public:
     void Kill() override
     {
         m_State = TweenState::Completed;
-        // Note: Kill does NOT call OnComplete
+        // Kill does NOT call OnComplete.
     }
 
     void Pause() override
@@ -274,47 +233,36 @@ public:
         Start();
     }
 
-    /**
-     * @brief Get current interpolated value
-     */
     const T& GetCurrentValue() const { return m_CurrentValue; }
 
-    /**
-     * @brief Get the target pointer
-     */
     T* GetTarget() const { return m_Target; }
 
 private:
-    T* m_Target;       // Pointer to value being tweened (optional)
-    T m_StartValue;    // Start value
-    T m_EndValue;      // End value
-    T m_CurrentValue;  // Current interpolated value
+    T* m_Target;  // The value being tweened (optional)
+    T m_StartValue;
+    T m_EndValue;
+    T m_CurrentValue;
 
     float m_Duration;
     float m_Elapsed;
     float m_Delay;
     float m_DelayElapsed;
 
-    EasingFunc m_EaseFunc;  // Easing function
-    TweenState m_State;     // Current state
+    EasingFunc m_EaseFunc;
+    TweenState m_State;
 
-    int32_t m_Loops;        // Number of loops (-1 = infinite)
-    int32_t m_CurrentLoop;  // Current loop index
-    bool m_PingPong;        // Reverse direction each loop
-    bool m_Reversed;        // Currently playing in reverse
+    int32_t m_Loops;  // -1 = forever
+    int32_t m_CurrentLoop;
+    bool m_PingPong;  // Reverse direction each loop
+    bool m_Reversed;  // Playing in reverse now
 
     UpdateCallback m_OnUpdate;
     CompleteCallback m_OnComplete;
 
-    /**
-     * @brief Interpolate between start and end values. t is normalized
-     * progress in [0,1].
-     */
+    // The value between start and end at eased progress t in [0,1].
     T Interpolate(float t) const;
 
-    /**
-     * @brief Apply current value to target and callbacks
-     */
+    // Writes the current value to the target and the update callback.
     void ApplyValue()
     {
         if (m_Target)
@@ -327,12 +275,9 @@ private:
         }
     }
 
-    /**
-     * @brief Handle loop completion or final completion
-     */
+    // At the end of a pass: start the next loop, or complete.
     void HandleLoopOrComplete()
     {
-        // Check if we should loop
         if (m_Loops == -1 || m_CurrentLoop < m_Loops)
         {
             m_CurrentLoop++;
@@ -345,7 +290,6 @@ private:
         }
         else
         {
-            // Complete
             m_State = TweenState::Completed;
             if (m_OnComplete)
             {
@@ -355,8 +299,8 @@ private:
     }
 };
 
-// ========== Type-specific interpolation specializations ==========
-// Implementations in Tween.cpp.
+// ========== Interpolation for each value type ==========
+// Defined in Tween.cpp.
 
 template <>
 float Tween<float>::Interpolate(float t) const;

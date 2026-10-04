@@ -11,40 +11,24 @@
 namespace DekiTween
 {
 
-/**
- * @brief Tween target type - which property to animate
- *
- * Uses Deki::Vector3 endValue:
- * - Position: X,Y from endValue
- * - Scale: X,Y from endValue
- * - Rotation: Z from endValue (radians; engine convention)
- */
+/// Which property a TweenComponent animates, and which parts of its
+/// Deki::Vector3 endValue it uses:
+/// - Position: X,Y
+/// - Scale: X,Y
+/// - Rotation: Z (radians, as everywhere in the engine)
 enum class TweenTargetType : uint8_t
 {
-    Position = 0,  // Animate X,Y position
-    Scale,         // Animate X,Y scale
-    Rotation,      // Animate rotation (uses Z component)
+    Position = 0,  // X,Y position
+    Scale,         // X,Y scale
+    Rotation,      // rotation, from the Z component
     Count
 };
 
-/**
- * @brief Editor-configurable tween component
- *
- * Allows designers to set up tweens in the inspector without code.
- * Extends Deki::Component for Update() lifecycle.
- *
- * Tweens from current state to endValue:
- * - Position: X,Y from endValue
- * - Scale: X,Y from endValue
- * - Rotation: Z from endValue (radians; engine convention)
- *
- * Features:
- * - Target property selection (position, scale, rotation)
- * - Duration, delay, looping, ping-pong
- * - Easing selection dropdown
- * - Auto-play on start option
- * - Completion events (for chaining or triggering other behaviours)
- */
+/// A tween set up in the inspector, no code needed. Animates the object's
+/// position, scale or rotation from where it is to endValue (see
+/// TweenTargetType for the parts used), with duration, delay, easing,
+/// looping, ping-pong and auto-play. Completion callbacks let tweens chain or
+/// trigger other behaviour.
 DEKI_CATEGORY("Animation")
 DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
 DEKI_FORMER_NAME("TweenComponent")
@@ -53,53 +37,46 @@ class DEKI_TWEEN_API TweenComponent : public Deki::Component
 public:
     // ========== Inspector Properties ==========
 
-    /** @brief Target type to animate */
     DEKI_EXPORT
     DEKI_TOOLTIP("Which property of the object is animated: position, scale, rotation or colour.")
     TweenTargetType targetType = TweenTargetType::Position;
 
-    /** @brief End value - Position/Scale use X,Y; Rotation uses Z */
+    /// Position and Scale use X,Y; Rotation uses Z.
     DEKI_EXPORT
     DEKI_TOOLTIP("The value to arrive at. Which parts are used depends on the target above.")
     Deki::Vector3 endValue = Deki::Vector3(0.0f, 0.0f, 0.0f);
 
-    /** @brief Duration in seconds. */
     DEKI_EXPORT
     DEKI_TOOLTIP("How long one pass takes, in seconds.")
     DEKI_UNIT(Time)
     DEKI_SLIDER(0.1f, 10.0f)
     float duration = 1.0f;
 
-    /** @brief Delay before starting (seconds). */
     DEKI_EXPORT
     DEKI_TOOLTIP("Wait this long, in seconds, before starting.")
     DEKI_UNIT(Time)
     DEKI_SLIDER(0.0f, 5.0f)
     float delay = 0.0f;
 
-    /** @brief Easing type */
     DEKI_EXPORT
     DEKI_TOOLTIP("The shape of the motion. Linear is mechanical; ease-in-out starts and ends gently, which reads as "
                  "natural for almost everything.")
     DekiTween::EaseType easeType = DekiTween::EaseType::Linear;
 
-    /** @brief Number of loops (-1 = infinite, 0 = no loop) */
     DEKI_EXPORT
     DEKI_TOOLTIP("How many times to run. 0 runs once, -1 repeats forever.")
     DEKI_RANGE(-1, 100)
     int32_t loops = 0;
 
-    /** @brief Reverse direction each loop */
     DEKI_EXPORT
     DEKI_TOOLTIP("Run the tween backwards on alternate passes instead of jumping back to the start.")
     bool pingPong = false;
 
-    /** @brief Auto-play when Start() is called */
+    /// Plays from Start().
     DEKI_EXPORT
     DEKI_TOOLTIP("Start as soon as the object comes alive. Off, something has to start it.")
     bool autoPlay = true;
 
-    /** @brief Use relative values (add to current instead of absolute) */
     DEKI_EXPORT
     DEKI_TOOLTIP(
         "Treat the end value as an offset from where the object already is, rather than an absolute destination.")
@@ -121,48 +98,26 @@ public:
 
     // ========== Control API ==========
 
-    /**
-     * @brief Start or restart the tween
-     */
+    /// Starts or restarts the tween.
     void Play();
 
-    /**
-     * @brief Pause the tween
-     */
     void Pause();
 
-    /**
-     * @brief Resume a paused tween
-     */
     void Resume();
 
-    /**
-     * @brief Stop and reset the tween
-     */
+    /// Stops and resets the tween.
     void Stop();
 
-    /**
-     * @brief Set completion callback
-     */
     void SetOnComplete(std::function<void()> callback);
 
-    /**
-     * @brief Check if tween is currently playing
-     */
     bool IsPlaying() const { return m_IsPlaying; }
 
-    /**
-     * @brief Check if tween has completed
-     */
     bool HasCompleted() const { return m_HasCompleted; }
 
-    /**
-     * @brief Get current progress (0-1).
-     */
+    /// Progress of the current pass, 0 to 1.
     float GetProgress() const;
 
 private:
-    // Runtime state.
     float m_Elapsed = 0.0f;
     float m_DelayElapsed = 0.0f;
     int32_t m_CurrentLoop = 0;
@@ -171,33 +126,20 @@ private:
     bool m_IsPlaying = false;
     bool m_IsPaused = false;
 
-    // Cached initial value (captured when tween starts)
+    // The property's value when the tween started
     Deki::Vector3 m_StartValue = Deki::Vector3(0.0f, 0.0f, 0.0f);
 
-    /**
-     * @brief Get the current value of the target property as Deki::Vector3
-     * Position: X,Y from object position
-     * Scale: X,Y from object scale
-     * Rotation: Z from object rotation
-     */
+    // The target property's current value as a Deki::Vector3: position or
+    // scale in X,Y, rotation in Z.
     Deki::Vector3 GetCurrentValue() const;
 
-    /**
-     * @brief Apply interpolated Deki::Vector3 value to target
-     */
+    // Writes the value at eased progress `easedT` to the target property.
     void ApplyValue(float easedT);
 
-    /**
-     * @brief Get the eased progress value.
-     */
     float GetEasedProgress(float t) const;
 
-    /**
-     * @brief Handle loop completion or final completion
-     */
+    // At the end of a pass: start the next loop, or complete.
     void HandleLoopOrComplete();
 };
-
-// Generated property metadata (after class definition for offsetof)
 
 }  // namespace DekiTween

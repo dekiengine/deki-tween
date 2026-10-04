@@ -3,8 +3,8 @@
 namespace DekiTween
 {
 
-// ========== Interpolation Specializations ==========
-// t is normalized progress in [0,1].
+// ========== Interpolation for each value type ==========
+// t is progress in [0,1].
 
 template <>
 float Tween<float>::Interpolate(float t) const

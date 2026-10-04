@@ -1,10 +1,9 @@
 // Properties every easing curve has to hold, checked across all of them.
 //
-// There are 31 curves and they are all small closed-form expressions, which is
-// exactly the shape where a transposed constant or a sign slip compiles, looks
-// plausible in isolation, and animates wrongly. Testing each curve's shape by
-// hand would mean 31 sets of hand-computed values; testing the properties they
-// all share catches the same mistakes and keeps working when a curve is added.
+// There are 31 curves, all small closed-form expressions, where a transposed
+// constant or a sign slip compiles, looks plausible alone, and animates
+// wrongly. Testing the properties they all share catches the same mistakes as
+// 31 sets of hand-computed values, and keeps working when a curve is added.
 
 #include <gtest/gtest.h>
 
@@ -13,7 +12,7 @@
 #include <cmath>
 #include <vector>
 
-// The package's types moved into its namespace; tests name them unqualified.
+// The package's types live in its namespace; the tests name them unqualified.
 using namespace DekiTween;
 
 namespace
