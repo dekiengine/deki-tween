@@ -31,7 +31,6 @@ enum class TweenTargetType : uint8_t
 /// trigger other behaviour.
 DEKI_CATEGORY("Animation")
 DEKI_DESCRIPTION("Animates the object's position, scale or rotation along an easing curve.")
-DEKI_FORMER_NAME("TweenComponent")
 class DEKI_TWEEN_API TweenComponent : public Deki::Component
 {
 public:
