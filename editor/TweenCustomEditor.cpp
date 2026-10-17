@@ -3,6 +3,7 @@
 #include <deki-editor/CustomEditor.h>
 #include <deki-editor/EditorUI.h>
 #include <deki-editor/EditorRegistry.h>
+#include <deki-editor/Localization.h>
 #include "../TweenComponent.h"
 #include <cstdio>
 
@@ -31,14 +32,14 @@ public:
         ui.Separator();
         if (tween->loops == -1)
         {
-            ui.TextDisabled("Total Duration: infinite");
+            ui.TextDisabled(DekiEditor::Tr("Total Duration: infinite"));
         }
         else
         {
             int plays = tween->loops <= 1 ? 1 : tween->loops;
             float total = tween->delay + tween->duration * plays;
             char buf[64];
-            std::snprintf(buf, sizeof(buf), "Total Duration: %.2fs", total);
+            std::snprintf(buf, sizeof(buf), DekiEditor::Tr("Total Duration: %.2fs"), total);
             ui.TextDisabled(buf);
         }
     }
