@@ -53,5 +53,7 @@
     "Auto Play": "自动播放",
     "Start as soon as the object comes alive. Off, something has to start it.": "对象一激活就开始。关闭时需要由其他东西来启动它。",
     "Total Duration: infinite": "总时长：无限",
-    "Total Duration: %.2fs": "总时长：%.2fs"
+    "Total Duration: %.2fs": "总时长：%.2fs",
+    "Animates the object's position, scale or rotation along an easing curve.": "沿缓动曲线为对象的位置、缩放或旋转制作动画。",
+    "Animation": "动画"
 }

@@ -53,5 +53,7 @@
     "Auto Play": "自動再生",
     "Start as soon as the object comes alive. Off, something has to start it.": "オブジェクトが動き始めるとすぐに開始します。オフにすると、ほかの何かが開始させる必要があります。",
     "Total Duration: infinite": "合計時間: 無限",
-    "Total Duration: %.2fs": "合計時間: %.2fs"
+    "Total Duration: %.2fs": "合計時間: %.2fs",
+    "Animates the object's position, scale or rotation along an easing curve.": "イージングカーブに沿って、オブジェクトの位置、スケール、回転をアニメーションさせます。",
+    "Animation": "アニメーション"
 }
