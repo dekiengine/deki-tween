@@ -26,21 +26,20 @@ public:
         // The default properties first
         ui.DrawDefaultInspector();
 
-        // Then the total duration, worked out
+        // Then the total duration, worked out, as a read-only row
         auto* tween = static_cast<DekiTween::TweenComponent*>(comp);
-        ui.Space();
-        ui.Separator();
+        ui.PropertyRow("Total Duration");
         if (tween->loops == -1)
         {
-            ui.TextDisabled(DekiEditor::Tr("Total Duration: infinite"));
+            ui.ValueText(DekiEditor::Tr("infinite"));
         }
         else
         {
             int plays = tween->loops <= 1 ? 1 : tween->loops;
             float total = tween->delay + tween->duration * plays;
             char buf[64];
-            std::snprintf(buf, sizeof(buf), DekiEditor::Tr("Total Duration: %.2fs"), total);
-            ui.TextDisabled(buf);
+            std::snprintf(buf, sizeof(buf), "%.2f s", total);
+            ui.ValueText(buf);
         }
     }
 };

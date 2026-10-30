@@ -8,6 +8,11 @@ breaking change bumps the minor across the editor, the engine and every
 package together, so a package with no changes of its own is still released
 alongside one that has them.
 
+## Unreleased
+
+### Changed
+- The total duration is a read-only row under the tween's properties.
+
 ## 0.19.0
 
 ### Changed
